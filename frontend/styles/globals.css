@@ -1,0 +1,33 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Roboto:wght@400;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.background-image {
+  background: url("/images/bannerBackground.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.my-font {
+  font-family: "Nunito", "Roboto";
+}
+.hero {
+  font-family: "Nunito", "Roboto";
+  font-size: 15px;
+  color: #f7fafc;
+  margin-top: 46px;
+  border-radius: 64px;
+}
+@media (min-width: 200px) {
+  .hero {
+    border-radius: 10px;
+  }
+}
+@media (min-width: 820px) {
+  .hero {
+    border-radius: 64px;
+  }
+}
