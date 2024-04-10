@@ -5,6 +5,7 @@ config();
 
 // import hardhat CLI tasks
 require('./tasks/hodl');
+require('./tasks/erc20-hodl');
 
 const ALCHEMY_API_KEY = process.env.ALCHEMY_API_KEY;
 const ACCOUNT_PRIVATE_KEY = process.env.ACCOUNT_PRIVATE_KEY;
