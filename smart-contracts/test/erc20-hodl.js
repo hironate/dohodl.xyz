@@ -21,22 +21,27 @@ describe('ERC20 Hodl', async () => {
     );
   });
 
-  it('should not deposit if the user does not have enough tokens', async () => {
-    await expect(
-      erc20Hodl.connect(bob).deposit(3, 1000000, mockErc20.target),
-    ).to.be.revertedWith('Not enough balance');
-  });
-
   it('should not deposit if the contract does not have enough allowance', async () => {
     await expect(
       erc20Hodl.deposit(3, 1000000, mockErc20.target),
-    ).to.be.revertedWith('Not enough allowance');
+    ).to.be.revertedWithCustomError(mockErc20, 'ERC20InsufficientAllowance');
+  });
+
+  it('should not deposit if the user does not have enough tokens', async () => {
+    await mockErc20.connect(bob).approve(erc20Hodl.target, 1000000);
+
+    await expect(
+      erc20Hodl.connect(bob).deposit(3, 1000000, mockErc20.target),
+    ).to.be.revertedWithCustomError(mockErc20, 'ERC20InsufficientBalance');
   });
 
   it('ERC20 tokens should be deposited to the smart contract', async () => {
     await mockErc20.approve(erc20Hodl.target, 1000000);
 
-    await erc20Hodl.deposit(3, 1000000, mockErc20.target);
+    await expect(erc20Hodl.deposit(3, 1000000, mockErc20.target)).to.emit(
+      erc20Hodl,
+      'Deposited',
+    );
 
     const hodlBalance = await mockErc20.balanceOf(erc20Hodl.target);
 
@@ -58,7 +63,9 @@ describe('ERC20 Hodl', async () => {
   it('should withdraw tokens after lock duration', async () => {
     sleep(1000);
 
-    await erc20Hodl.withdraw(1);
+    await expect(erc20Hodl.withdraw(1))
+      .to.emit(erc20Hodl, 'Withdrawn')
+      .withArgs(1, 1000000, mockErc20.target);
     const hodlBalance = await mockErc20.balanceOf(erc20Hodl.target);
 
     expect(hodlBalance).to.be.equal(0);

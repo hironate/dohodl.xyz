@@ -2,11 +2,11 @@
 pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 
-contract ERC20Hodl {
+contract ERC20Hodl is ReentrancyGuard {
     uint256 id;
     struct Details {
-        uint256 id;
         uint256 unlockTime;
         uint256 lockedTime;
         address owner;
@@ -43,19 +43,9 @@ contract ERC20Hodl {
         uint256 _unlockTime = block.timestamp + _duration;
         address _owner = msg.sender;
 
-        require(
-            IERC20(_tokenAddress).balanceOf(_owner) >= _amount,
-            "Not enough balance"
-        );
-        require(
-            IERC20(_tokenAddress).allowance(_owner, address(this)) >= _amount,
-            "Not enough allowance"
-        );
-
         IERC20(_tokenAddress).transferFrom(_owner, address(this), _amount);
 
         lockups[++id] = Details({
-            id: id,
             lockedTime: block.timestamp,
             unlockTime: _unlockTime,
             owner: _owner,
@@ -81,7 +71,7 @@ contract ERC20Hodl {
      *@dev function withdraw in contract
      *@param _id {uint256} lockup id which points to particular lockup
      */
-    function withdraw(uint256 _id) public {
+    function withdraw(uint256 _id) public nonReentrant {
         Details memory _lockups = lockups[_id];
 
         require(!_lockups.withdrawn, "Already Withdrawn");
