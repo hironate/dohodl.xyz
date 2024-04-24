@@ -37,8 +37,8 @@ const menuItemData = [
   {
     name: "Vesting",
     icon: BsShieldLockFill,
-    url: "/vesting",
-    comingSoon: false,
+    url: "#",
+    comingSoon: true,
   },
 ];
 
