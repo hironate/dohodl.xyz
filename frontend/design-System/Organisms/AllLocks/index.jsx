@@ -1,37 +1,37 @@
-import React from 'react';
-import { ethers } from 'ethers';
-import { useState, useEffect } from 'react';
-import { FaLock } from 'react-icons/fa';
-import { createClient } from 'urql';
-import { useSelector } from 'react-redux';
-import { timeStampToDate } from '../../../utils/dateTime/timestampToDate';
-import { timeDifference } from '../../../utils/dateTime/timeDifference';
-import Table from '../../Molecules/Table';
-import { Spinner } from '../../Atom/Spinner';
-import { Label } from '../../Atom/Label';
-import NoRecord from '../../Molecules/NoRecord';
-import TransationDetails from '../../Molecules/Modals/TransationDetails';
+import React from "react";
+import { ethers } from "ethers";
+import { useState, useEffect } from "react";
+import { FaLock } from "react-icons/fa";
+import { createClient } from "urql";
+import { useSelector } from "react-redux";
+import { timeStampToDate } from "../../../utils/dateTime/timestampToDate";
+import { timeDifference } from "../../../utils/dateTime/timeDifference";
+import Table from "../../Molecules/Table";
+import { Spinner } from "../../Atom/Spinner";
+import { Label } from "../../Atom/Label";
+import NoRecord from "../../Molecules/NoRecord";
+import TransationDetails from "../../Molecules/Modals/TransationDetails";
 
 const columns = [
-  { heading: 'S.no', value: 'sNo' },
-  { heading: 'Hodl Amount', value: 'lockAmount' },
-  { heading: 'Owner', value: 'owner' },
-  { heading: 'Lock Date', value: 'lockDate' },
-  { heading: 'Unlock Date', value: 'unlockDate' },
-  { heading: 'Status', value: 'hodlStatus' },
-  { heading: '', value: 'view' },
+  { heading: "S.no", value: "sNo" },
+  { heading: "Hodl Amount", value: "lockAmount" },
+  { heading: "Owner", value: "owner" },
+  { heading: "Lock Date", value: "lockDate" },
+  { heading: "Unlock Date", value: "unlockDate" },
+  { heading: "Status", value: "hodlStatus" },
+  { heading: "", value: "view" },
 ];
 
 function getHodlOwner(owner) {
   return (
-    <span title={owner}>{owner.slice(0, 5) + '...' + owner.slice(38, 44)}</span>
+    <span title={owner}>{owner.slice(0, 5) + "..." + owner.slice(38, 44)}</span>
   );
 }
 function getHodlAmount(amount) {
   let hodlAmount = ethers.utils.formatEther(amount);
   return (
     <div className="flex items-center">
-      <FaLock className="text-xs mx-1" />
+      <FaLock className="mx-1 text-xs" />
       <span>{hodlAmount}</span>
     </div>
   );
@@ -39,27 +39,27 @@ function getHodlAmount(amount) {
 function getHodlStatus(isWithdrawn, unlockdate) {
   let status;
   if (isWithdrawn) {
-    status = 'Already Withdrawn';
+    status = "Already Withdrawn";
   } else {
     const currentTime = new Date().getTime();
     const unlockTime = unlockdate * 1000;
 
     if (currentTime > unlockTime) {
-      status = 'Completed';
+      status = "Completed";
     } else {
-      status = timeDifference(unlockTime) + ' left';
+      status = timeDifference(unlockTime) + " left";
     }
   }
   let statusCss;
   switch (status) {
-    case 'Completed':
-      statusCss = 'bg-green-500';
+    case "Completed":
+      statusCss = "bg-green-500";
       break;
-    case 'Already Withdrawn':
-      statusCss = 'bg-red-500';
+    case "Already Withdrawn":
+      statusCss = "bg-red-500";
       break;
     default:
-      statusCss = 'bg-yellow-500';
+      statusCss = "bg-yellow-500";
       break;
   }
 
@@ -69,7 +69,7 @@ function getHodlStatus(isWithdrawn, unlockdate) {
 }
 function viewHodl() {
   return (
-    <button className="border-2 border-indigo-200 px-2 rounded-md hover:shadow-lg">
+    <button className="px-2 border-2 border-indigo-200 rounded-md hover:shadow-lg">
       View
     </button>
   );
@@ -77,17 +77,13 @@ function viewHodl() {
 
 const AllLocks = () => {
   const { subgraphApiUrl, etherscan } = useSelector(
-    (state) => state.ChainDataReducer,
+    (state) => state.ChainDataReducer
   );
   const [openModal, setOpenModal] = useState(false);
   const [transationHash, setTransationHash] = useState();
   const [loading, setLoding] = useState(false);
   const [data, setData] = useState([]);
   const [rowData, setRowData] = useState([]);
-  const [currentOffset, setCurrentOffset] = useState(1);
-  const [totalOffsets, setTotalOffsets] = useState(0);
-  const [currentOffsetData, setCurrentOffsetData] = useState([]);
-  const itemsPerPage = 10;
 
   useEffect(() => {
     fetchAllLocks();
@@ -96,10 +92,6 @@ const AllLocks = () => {
   useEffect(() => {
     calculateRowData();
   }, [data]);
-
-  useEffect(() => {
-    handleOffsetData();
-  }, [rowData, currentOffset]);
 
   const fetchAllLocks = async () => {
     const query = `
@@ -123,6 +115,7 @@ const AllLocks = () => {
 
       setLoding(true);
       const fetchedData = await client.query(query).toPromise();
+
       if (fetchedData.data.depositeds) {
         setData(fetchedData.data.depositeds);
       }
@@ -150,8 +143,6 @@ const AllLocks = () => {
       rowData.push(row);
     }
     setRowData(rowData);
-    setTotalOffsets(Math.ceil(data.length / itemsPerPage));
-    setCurrentOffset(1);
   }
 
   const handleOnClickRow = (data) => {
@@ -159,41 +150,13 @@ const AllLocks = () => {
     setOpenModal(true);
   };
 
-  const handleOffsetData = () => {
-    let startIndex = (currentOffset - 1) * itemsPerPage;
-    let endIndex;
-    if (currentOffset * itemsPerPage - 1 < rowData.length) {
-      endIndex = currentOffset * itemsPerPage - 1;
-    } else {
-      endIndex = rowData.length - 1;
-    }
-
-    let offsetData = [];
-    for (let i = startIndex; i <= endIndex; i++) {
-      offsetData.push(rowData[i]);
-    }
-
-    setCurrentOffsetData(offsetData);
-  };
-
-  const handlePrev = () => {
-    if (currentOffset !== 1) {
-      setCurrentOffset(currentOffset - 1);
-    }
-  };
-  const handleNext = () => {
-    if (currentOffset < totalOffsets) {
-      setCurrentOffset(currentOffset + 1);
-    }
-  };
-
   return (
-    <div className="mt-5 md:mt-10 mx-2 md:mx-5">
+    <div className="mx-2 mt-5 md:mt-10 md:mx-5">
       <Label className="text-center py-2 text-2xl font-bold  mb-0.5">
         All Locks
       </Label>
       {loading ? (
-        <div className="flex flex-col justify-center items-center">
+        <div className="flex flex-col items-center justify-center">
           <Spinner />
           <p className="text-gray-300">Please Wait</p>
         </div>
@@ -202,25 +165,10 @@ const AllLocks = () => {
           {data.length != 0 ? (
             <>
               <Table
-                rows={currentOffsetData}
+                rows={rowData}
                 columns={columns}
                 onClickRow={handleOnClickRow}
               />
-              <div className="text-center mt-2">
-                <button
-                  className="text-white bg-blue-600 mx-3 rounded-lg px-3"
-                  onClick={handlePrev}
-                >
-                  Prev
-                </button>
-                {currentOffset} of {totalOffsets}
-                <button
-                  className="text-white bg-blue-600 mx-3 rounded-lg px-3"
-                  onClick={handleNext}
-                >
-                  Next
-                </button>
-              </div>
             </>
           ) : (
             <NoRecord />

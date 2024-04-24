@@ -1,16 +1,16 @@
-import Hodl from '../Hodl';
-import MyLocks from '../MyLocks';
-import SafetyGuidBanner from '../../Molecules/Banner/SafetyGuidBanner';
-import { useState, useEffect, memo } from 'react';
-import { createClient } from 'urql';
-import { useSelector } from 'react-redux';
+import Hodl from "../Hodl";
+import MyLocks from "../MyLocks";
+import SafetyGuidBanner from "../../Molecules/Banner/SafetyGuidBanner";
+import { useState, useEffect, memo } from "react";
+import { createClient } from "urql";
+import { useSelector } from "react-redux";
 const SafetyGuidBannerMemo = memo(SafetyGuidBanner);
 const Lockups = () => {
   const currentAccount = useSelector(
-    (state) => state.WalletDataReducer.currentAccount,
+    (state) => state.WalletDataReducer.currentAccount
   );
   const subgraphApiUrl = useSelector(
-    (state) => state.ChainDataReducer.subgraphApiUrl,
+    (state) => state.ChainDataReducer.subgraphApiUrl
   );
 
   const [loading, setLoding] = useState(false);
@@ -43,6 +43,7 @@ const Lockups = () => {
 
       setLoding(true);
       const data = await client.query(depositQuery).toPromise();
+
       if (data.data.depositeds) {
         setData(data.data.depositeds);
       }

@@ -1,17 +1,17 @@
-import { useState, useEffect, memo } from 'react';
-import { ethers } from 'ethers';
-import { createClient } from 'urql';
-import { InfoCard } from '../../Atom/InfoCard';
-import { useSelector } from 'react-redux';
+import { useState, useEffect, memo } from "react";
+import { ethers } from "ethers";
+import { createClient } from "urql";
+import { InfoCard } from "../../Atom/InfoCard";
+import { useSelector } from "react-redux";
 const InfoCardMemo = memo(InfoCard);
 
 const InfoCards = () => {
   const chainData = useSelector((state) => state).ChainDataReducer;
 
   const [data, setData] = useState({
-    totalLocks: '00',
-    lockedAmount: '00',
-    withdrawn: '00',
+    totalLocks: "00",
+    lockedAmount: "00",
+    withdrawn: "00",
   });
 
   useEffect(() => {
@@ -66,27 +66,27 @@ const InfoCards = () => {
   };
 
   function weiToEthFormate(wei) {
-    let eth = ethers.utils.formatEther('' + wei);
+    let eth = ethers.utils.formatEther("" + wei);
     return parseFloat(Number(eth)).toFixed(3);
   }
 
   let infoData = [
     {
       amount: data.totalLocks,
-      title: 'Total Lock Value',
+      title: "Total Lock Value",
     },
     {
       amount: data.lockedAmount,
-      title: ' Locked Value',
+      title: " Locked Value",
     },
     {
       amount: data.withdrawn,
-      title: 'Withdrawn',
+      title: "Withdrawn",
     },
   ];
 
   return (
-    <div className="container mt-5 mx-auto flex flex-wrap justify-center  md:space-x-5">
+    <div className="container flex flex-wrap justify-center mx-auto mt-5 md:space-x-5">
       {infoData.map((data, index) => {
         return (
           <InfoCardMemo

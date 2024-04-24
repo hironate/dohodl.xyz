@@ -54,16 +54,40 @@ module.exports = {
       chainId: 56,
       gas: "auto",
     },
+    base: {
+      url: `https://base-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_BASE_API_KEY}`,
+      accounts: [`${ACCOUNT_PRIVATE_KEY}`],
+      chainId: 8453,
+      gas: "auto",
+    },
+    baseSepolia: {
+      url: `https://base-sepolia.g.alchemy.com/v2/${process.env.ALCHEMY_BASE_SEPOLIA_API_KEY}`,
+      accounts: [`${ACCOUNT_PRIVATE_KEY}`],
+      chainId: 84532,
+      gas: "auto",
+    },
   },
   etherscan: {
     apiKey: {
-      mainnet: process.env.ETHERSCANE_MAINNET_API_KEY,
+      mainnet: process.env.process.env.ETHERSCANE_MAINNET_API_KEY,
       sepolia: process.env.ETHERSCANE_SEPOLIA_API_KEY,
-      goerli: process.env.ETHERSCANE_GOERLI_API_KEY,
       polygon: process.env.ETHERSCANE_POLYGON_API_KEY,
-      polygonMumbai: process.env.ETHERSCANE_POLYGON_MUMBAI_API_KEY,
-      bsc: process.env.ETHERSCANE_BINANCE_API_KEY,
-      bscTestnet: process.env.ETHERSCANE_BINANCE_TESTNET_API_KEY,
+      bsc: process.env.ETHERSCANE_BSC_API_KEY,
+      goerli: process.env.ETHERSCANE_GOERLI_API_KEY,
+      polygonMumbai: process.env.ETHERSCANE_MUMBAI_API_KEY,
+      bscTestnet: process.env.ETHERSCANE_BSC_TESTNET_API_KEY,
+      base: process.env.ETHERSCANE_BASE_API_KEY,
+      baseSepolia: process.env.ETHERSCANE_BASE_TESTNET_API_KEY,
     },
+    customChains: [
+      {
+        network: "baseSepolia",
+        chainId: 84532,
+        urls: {
+          apiURL: "https://api-sepolia.basescan.org/api",
+          browserURL: "https://sepolia.basescan.org/",
+        },
+      },
+    ],
   },
 };

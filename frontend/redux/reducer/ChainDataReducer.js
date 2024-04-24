@@ -8,6 +8,7 @@ const initialState = {
   ],
   logoUrl: '/images/chainLogo/ethereum.png',
   subgraphApiUrl: '',
+  vesterSubgraphApiUrl: '',
   etherscan: '',
 };
 

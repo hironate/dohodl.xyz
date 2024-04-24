@@ -22,7 +22,7 @@ export const Button = ({
     rounded ? `rounded-2xl` : 'rounded-lg',
     'flex items-center justify-center', // alignment
     blocked && 'w-full block',
-    disabled || loading ? 'disabled cursor-not-allowed' : 'cursor-pointer',
+    disabled || loading ? 'disabled cursor-not-allowed bg-blue-500' : 'cursor-pointer',
     'hover:bg-blue-700  hover:shadow-md',
   ].join(' ');
 

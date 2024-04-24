@@ -1,19 +1,19 @@
-import React from 'react';
-import { useState, useEffect, useRef, memo, useCallback } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { setChainData } from '../../../redux/action';
-import { chainList } from '../../../config/chainList';
-import Logo from '../../Molecules/Logo';
-import { MenuBar } from '../../Molecules/MenuBar';
-import { UserAccount } from '../../Organisms/UserAccount';
-import { Menu } from '../../Atom/Menu';
-import OutsideClickHandler from 'react-outside-click-handler';
-import { getCurrentChainId } from '../../../utils/network/getCurrentChainId';
-import { changeNetwork } from '../../../utils/network/changeNetwork';
-import { toast } from 'react-toastify';
-import { Dropdown } from '../../Atom/Dropdown';
-import { Alert } from '../../Atom/Alert';
-import { NetworksDropdown } from '../../Molecules/NetworkDropdown';
+import React from "react";
+import { useState, useEffect, useRef, memo, useCallback } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { setChainData } from "../../../redux/action";
+import { chainList } from "../../../config/chainList";
+import Logo from "../../Molecules/Logo";
+import { MenuBar } from "../../Molecules/MenuBar";
+import { UserAccount } from "../../Organisms/UserAccount";
+import { Menu } from "../../Atom/Menu";
+import OutsideClickHandler from "react-outside-click-handler";
+import { getCurrentChainId } from "../../../utils/network/getCurrentChainId";
+import { changeNetwork } from "../../../utils/network/changeNetwork";
+import { toast } from "react-toastify";
+import { Dropdown } from "../../Atom/Dropdown";
+import { Alert } from "../../Atom/Alert";
+import { NetworksDropdown } from "../../Molecules/NetworkDropdown";
 const LogoMemo = memo(Logo);
 const DropdownMemo = memo(Dropdown);
 const UserAccountMemo = memo(UserAccount);
@@ -28,8 +28,8 @@ const Header = () => {
 
   useEffect(() => {
     fetchCurrentChainData();
-    if (typeof window.ethereum !== 'undefined') {
-      ethereum.on('chainChanged', function (chainId) {
+    if (typeof window.ethereum !== "undefined") {
+      ethereum.on("chainChanged", function (chainId) {
         fetchCurrentChainData();
       });
     }
@@ -40,7 +40,7 @@ const Header = () => {
   }, [openChaiList]);
 
   const handleOnClickDropdownItem = (data) => {
-    if (typeof window.ethereum !== 'undefined') {
+    if (typeof window.ethereum !== "undefined") {
       changeNetwork(data);
     } else {
       changeNetworkLocally(data);
@@ -51,7 +51,7 @@ const Header = () => {
   const handleOnClickOutside = (e) => {
     let isOutsideClickable = true;
     for (let i = 0; i < 3; i++) {
-      if (e.path[i] == dropdownRef.current) {
+      if (e.composedPath[i] == dropdownRef.current) {
         isOutsideClickable = false;
         break;
       }
@@ -62,7 +62,7 @@ const Header = () => {
   };
 
   const fetchCurrentChainData = async () => {
-    if (typeof window.ethereum !== 'undefined') {
+    if (typeof window.ethereum !== "undefined") {
       const chainId = await getCurrentChainId();
       if (chainId) {
         const currentChain = chainList.filter(function (val) {
@@ -72,7 +72,7 @@ const Header = () => {
           dispatch(setChainData(currentChain[0]));
         } else {
           toast.error(
-            'Connected to unsupported Network, Change your network in metamask',
+            "Connected to unsupported Network, Change your network in metamask"
           );
           await changeNetwork(chainList[0]);
         }
@@ -88,15 +88,15 @@ const Header = () => {
 
   return (
     <>
-      <div className="bg-white sticky top-0 ">
-        {typeof window.ethereum === 'undefined' && (
+      <div className="sticky top-0 bg-white ">
+        {typeof window.ethereum === "undefined" && (
           <Alert>
             <div>
               MetaMask Extension Not Found !
               <a
                 href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en"
                 target="_blank"
-                className=" font-bold ml-1"
+                className="ml-1 font-bold "
                 rel="noreferrer"
               >
                 Click here to Install MetaMask
@@ -104,9 +104,9 @@ const Header = () => {
             </div>
           </Alert>
         )}
-        <div className="container mx-auto  py-5 flex justify-between items-center px-2">
+        <div className="container flex items-center justify-between px-2 py-5 mx-auto">
           <div className="lg:ml-16 ">
-            <LogoMemo url="/" className="h-8 md:h-12 cursor-pointer" />
+            <LogoMemo url="/" className="h-8 cursor-pointer md:h-12" />
           </div>
           <div className="flex space-x-2 md:space-x-5">
             <DropdownMemo
@@ -123,7 +123,7 @@ const Header = () => {
       {openMenu && (
         <OutsideClickHandler onOutsideClick={() => setOpenMenu(false)}>
           <div
-            className="md:hidden fixed z-20 bg-white w-full duration-500"
+            className="fixed z-20 w-full duration-500 bg-white md:hidden"
             onClick={() => setOpenMenu(false)}
           >
             <MenuBar />

@@ -1,0 +1,27 @@
+specVersion: 0.0.4
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: Hodl
+    network: base-sepolia
+    source:
+      address: "0xb355534407E51ea8f0FB525DB6Fc4Af6404dB551"
+      abi: Hodl
+      startBlock: 8708956
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Deposited
+        - Withdrawn
+      abis:
+        - name: Hodl
+          file: ./abis/Hodl.json
+      eventHandlers:
+        - event: Deposited(uint256,uint256,uint256,address,address,uint256,bool)
+          handler: handleDeposited
+        - event: Withdrawn(uint256,uint256,address)
+          handler: handleWithdrawn
+      file: ./src/hodl.ts
