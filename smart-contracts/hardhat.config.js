@@ -69,7 +69,7 @@ module.exports = {
   },
   etherscan: {
     apiKey: {
-      mainnet: process.env.process.env.ETHERSCANE_MAINNET_API_KEY,
+      mainnet: process.env.ETHERSCANE_MAINNET_API_KEY,
       sepolia: process.env.ETHERSCANE_SEPOLIA_API_KEY,
       polygon: process.env.ETHERSCANE_POLYGON_API_KEY,
       bsc: process.env.ETHERSCANE_BSC_API_KEY,
