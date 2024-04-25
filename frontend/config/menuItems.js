@@ -1,43 +1,43 @@
-import { AiFillHome, AiFillLock, AiFillThunderbolt } from 'react-icons/ai';
-import { BsShieldLockFill } from 'react-icons/bs';
-import { FaLock } from 'react-icons/fa';
-import { ImDatabase } from 'react-icons/im';
+import { AiFillHome, AiFillLock, AiFillThunderbolt } from "react-icons/ai";
+import { BsShieldLockFill } from "react-icons/bs";
+import { FaLock } from "react-icons/fa";
+import { ImDatabase } from "react-icons/im";
 
 const menuItemData = [
   {
-    name: 'Home',
+    name: "Home",
     icon: AiFillHome,
-    url: '/',
+    url: "/",
     comingSoon: false,
   },
   {
-    name: 'All Locks',
+    name: "All Locks",
     icon: ImDatabase,
-    url: '/all-locks',
+    url: "/all-locks",
     comingSoon: false,
   },
   {
-    name: 'Native Assets Locks',
+    name: "Native Assets Locks",
     icon: FaLock,
-    url: '/hodl',
+    url: "/hodl",
     comingSoon: false,
   },
   {
-    name: 'Token Locks',
+    name: "Token Locks",
     icon: AiFillLock,
-    url: '#',
-    comingSoon: true,
+    url: "/token-lock",
+    comingSoon: false,
   },
   {
-    name: 'Mint',
+    name: "Mint",
     icon: AiFillThunderbolt,
-    url: '#',
+    url: "#",
     comingSoon: true,
   },
   {
-    name: 'Vesting',
+    name: "Vesting",
     icon: BsShieldLockFill,
-    url: '#',
+    url: "#",
     comingSoon: true,
   },
 ];

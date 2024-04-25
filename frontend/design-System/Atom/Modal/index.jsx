@@ -1,6 +1,6 @@
 import { GiCancel } from 'react-icons/gi';
 import { default as ReactModal } from 'react-modal';
-export const Modal = ({ open, setOpen, label, children }) => {
+export const Modal = ({ open, setOpen, label, children, pressed }) => {
   return (
     <div>
       <ReactModal
@@ -12,7 +12,12 @@ export const Modal = ({ open, setOpen, label, children }) => {
         <div className="flex justify-between text-xl ">
           <h3 className="inline "> {label} </h3>
           <div className="float-right">
-            <button onClick={() => setOpen(false)}>
+            <button onClick={() => {
+              setOpen(false);
+              if (pressed) {
+                pressed(false)
+              }
+            }}>
               <GiCancel />
             </button>
           </div>

@@ -1,0 +1,10 @@
+type Deposited @entity {
+  id: ID!
+  unlockTime: BigInt! # uint256
+  lockedTime: BigInt! # uint256
+  owner: Bytes! # address
+  tokenAddress: Bytes! # address
+  amount: BigInt! # uint256
+  withdrawn: Boolean! # bool
+  transationHash: String! # string
+}

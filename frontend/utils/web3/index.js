@@ -2,9 +2,10 @@ import Web3Modal from 'web3modal';
 import WalletConnectProvider from '@walletconnect/web3-provider';
 import CoinbaseWalletSDK from '@coinbase/wallet-sdk';
 import Fortmatic from 'fortmatic';
-import { ethers } from 'ethers';
+import { ethers, Signer } from 'ethers';
 
 let web3Modal;
+
 const customNetworkOptions = {
   rpcUrl: 'https://rpc-mainnet.maticvigil.com',
   chainId: 137,
@@ -67,5 +68,20 @@ export const getWalletData = async () => {
       };
       return data;
     }
-  } catch (e) {}
+  } catch (e) { }
 };
+
+export const getContract = (address, abi) => {
+  if (typeof window !== 'undefined' && typeof window.ethereum !== 'undefined') {
+    try {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      return new ethers.Contract(address, abi, signer);
+
+    }
+    catch (error) {
+      console.log(error);
+    }
+  }
+  return;
+}

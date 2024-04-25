@@ -1,7 +1,10 @@
-import Layout from '../design-System/Organisms/Layout';
-import '../styles/globals.css';
-import { Provider } from 'react-redux';
-import store from '../redux/store';
+import Layout from "../design-System/Organisms/Layout";
+import "../styles/globals.css";
+import { Provider } from "react-redux";
+import store from "../redux/store";
+export const metadata = {
+  title: "Hodl",
+};
 function MyApp({ Component, pageProps }) {
   return (
     <Provider store={store}>
