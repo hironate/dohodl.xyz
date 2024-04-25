@@ -73,18 +73,6 @@ module.exports = {
       chainId: 84532,
       gas: "auto",
     },
-    base: {
-      url: `https://base-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_BASE_API_KEY}`,
-      accounts: [`${ACCOUNT_PRIVATE_KEY}`],
-      chainId: 8453,
-      gas: "auto",
-    },
-    baseSepolia: {
-      url: `https://base-sepolia.g.alchemy.com/v2/${process.env.ALCHEMY_BASE_SEPOLIA_API_KEY}`,
-      accounts: [`${ACCOUNT_PRIVATE_KEY}`],
-      chainId: 84532,
-      gas: "auto",
-    },
   },
   etherscan: {
     apiKey: {
