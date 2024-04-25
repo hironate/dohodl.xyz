@@ -2,7 +2,46 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
-First, run the development server:
+#### Environment Configuration
+
+The project includes a `.env.example` file, which serves as a template for your environment configuration. To get started, follow these steps:
+
+1. **Create a Copy of .env.example:**
+
+   - Duplicate the `.env.example` file in the root of your project.
+   - Rename the duplicated file to `.env`.
+
+2. **Add Your Values:**
+
+   - Open the newly created `.env` file in a text editor.
+   - Fill in the required values for each environment variable based on your specific setup.
+
+   ```dotenv
+   # Example .env file
+
+   # Replace the placeholder values with your actual configuration
+   NEXT_PUBLIC_INFURA_API_KEY="{INFURA_API_KEY}"
+   NEXT_PUBLIC_MAINNET_SUBGRAPH_URL=
+   NEXT_PUBLIC_MAINNET_ERC20_HODL_SUBGRAPH_URL=
+   NEXT_PUBLIC_SEPOLIA_SUBGRAPH_URL=
+   NEXT_PUBLIC_SEPOLIA_ERC20_HODL_SUBGRAPH_URL=
+   NEXT_PUBLIC_POLYGON_SUBGRAPH_URL=
+   NEXT_PUBLIC_POLYGON_ERC20_HODL_SUBGRAPH_URL=
+   NEXT_PUBLIC_MUMBAI_SUBGRAPH_URL=
+   NEXT_PUBLIC_MUMBAI_ERC20_HODL_SUBGRAPH_URL=
+   NEXT_PUBLIC_BINANCE_SUBGRAPH_URL=
+   NEXT_PUBLIC_BINANCE_ERC20_HODL_SUBGRAPH_URL=
+   NEXT_PUBLIC_BINANCE_TESTNET_SUBGRAPH_URL=
+   NEXT_PUBLIC_BINANCE_TESTNET_ERC20_HODL_SUBGRAPH_URL=
+   NEXT_PUBLIC_BASE_SUBGRAPH_URL=
+   NEXT_PUBLIC_BASE_ERC20_HODL_SUBGRAPH_URL=
+   NEXT_PUBLIC_BASE_TESTNET_SUBGRAPH_URL=
+   NEXT_PUBLIC_BASE_TESTNET_ERC20_HODL_SUBGRAPH_URL=
+   NEXT_PUBLIC_CONTRACT_ADDRESS=
+   NEXT_PUBLIC_ERC20_HODL_CONTRACT_ADDRESS=
+   ...
+   Now run the development server:
+   ```
 
 ```bash
 npm run dev
