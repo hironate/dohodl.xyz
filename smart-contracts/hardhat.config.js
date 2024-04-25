@@ -1,12 +1,19 @@
 const { config } = require("dotenv");
-require("@nomiclabs/hardhat-waffle");
-require("@nomiclabs/hardhat-etherscan");
+require("@nomicfoundation/hardhat-toolbox");
+require("@nomiclabs/hardhat-solhint");
 config();
+
+// import hardhat CLI tasks
+require("./tasks/hodl");
+require("./tasks/erc20-hodl");
+
 const ALCHEMY_API_KEY = process.env.ALCHEMY_API_KEY;
 const ACCOUNT_PRIVATE_KEY = process.env.ACCOUNT_PRIVATE_KEY;
 const SEPOLIA_ALCHEMY_API = process.env.SEPOLIA_ALCHEMY_API;
+const BASE_ALCHEMY_API = process.env.BASE_ALCHEMY_API;
+const BASE_SEPOLIA_ALCHEMY_API = process.env.BASE_SEPOLIA_ALCHEMY_API;
 module.exports = {
-  solidity: "0.8.4",
+  solidity: "0.8.20",
   networks: {
     hardhat: {
       chainId: 1337,
@@ -55,6 +62,18 @@ module.exports = {
       gas: "auto",
     },
     base: {
+      url: `https://base-mainnet.g.alchemy.com/v2/${BASE_ALCHEMY_API}`,
+      accounts: [`${ACCOUNT_PRIVATE_KEY}`],
+      chainId: 8453,
+      gas: "auto",
+    },
+    baseSepolia: {
+      url: `https://base-sepolia.g.alchemy.com/v2/${BASE_SEPOLIA_ALCHEMY_API}`,
+      accounts: [`${ACCOUNT_PRIVATE_KEY}`],
+      chainId: 84532,
+      gas: "auto",
+    },
+    base: {
       url: `https://base-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_BASE_API_KEY}`,
       accounts: [`${ACCOUNT_PRIVATE_KEY}`],
       chainId: 8453,
@@ -69,15 +88,15 @@ module.exports = {
   },
   etherscan: {
     apiKey: {
-      mainnet: process.env.ETHERSCANE_MAINNET_API_KEY,
-      sepolia: process.env.ETHERSCANE_SEPOLIA_API_KEY,
-      polygon: process.env.ETHERSCANE_POLYGON_API_KEY,
-      bsc: process.env.ETHERSCANE_BSC_API_KEY,
-      goerli: process.env.ETHERSCANE_GOERLI_API_KEY,
-      polygonMumbai: process.env.ETHERSCANE_MUMBAI_API_KEY,
-      bscTestnet: process.env.ETHERSCANE_BSC_TESTNET_API_KEY,
-      base: process.env.ETHERSCANE_BASE_API_KEY,
-      baseSepolia: process.env.ETHERSCANE_BASE_TESTNET_API_KEY,
+      mainnet: process.env.ETHERSCAN_MAINNET_API_KEY,
+      sepolia: process.env.ETHERSCAN_SEPOLIA_API_KEY,
+      goerli: process.env.ETHERSCAN_GOERLI_API_KEY,
+      polygon: process.env.ETHERSCAN_POLYGON_API_KEY,
+      polygonMumbai: process.env.ETHERSCAN_POLYGON_MUMBAI_API_KEY,
+      bsc: process.env.ETHERSCAN_BINANCE_API_KEY,
+      bscTestnet: process.env.ETHERSCAN_BINANCE_TESTNET_API_KEY,
+      base: process.env.ETHERSCAN_BASE_API_KEY,
+      baseSepolia: process.env.ETHERSCAN_BASE_SEPOLIA_API_KEY,
     },
     customChains: [
       {
