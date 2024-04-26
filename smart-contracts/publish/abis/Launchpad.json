@@ -1,0 +1,914 @@
+[
+  {
+    "inputs": [],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "target",
+        "type": "address"
+      }
+    ],
+    "name": "AddressEmptyCode",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
+    ],
+    "name": "AddressInsufficientBalance",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "AddressZero",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "AlreadyWithdrawn",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ClaimedAlready",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ContractNotFullyFunded",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "EmptyAddress",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "EndTimeMustBeInFuture",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "EnforcedPause",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ExpectedPause",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "FailedInnerCall",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "HardCapReachedNoTokensToSweep",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "IneligibleForRefund",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "InvalidProjectID",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_maxInvestmentPossible",
+        "type": "uint256"
+      }
+    ],
+    "name": "InvestmentAmountExceedsHardcap",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "InvestmentAmtBelowMinimum",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "InvestmentAmtExceedsMaximum",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "InvestmentNotReachedSoftcap",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "LiquidityPercentMustBeInRange51To100",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "MaxCapExceeded",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "MaxInvestmentMustBeGreaterOrEqualToMinInvestment",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "MaxInvestmentShouldBeLessThanOrEqualToHardcap",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "MinimumInvestmentMustBeGreaterThanZero",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "NotLaunchPadAdmin",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "NotProjectOwner",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "NotWhiteListed",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "OldAdmin",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ProjectEnded",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ProjectIsNotEndedYet",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ProjectNotActive",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ProjectNotStartedYet",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ProjectStillInProgress",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ReentrancyGuardReentrantCall",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "token",
+        "type": "address"
+      }
+    ],
+    "name": "SafeERC20FailedOperation",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "SoftcapMustBeLessThanHardcap",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "StartTimeMustBeInFuture",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "TokenAllocationMustBeGreaterThanZero",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "TokenAlreadyWhitelisted",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "TokenPriceMustBeGreaterThanZero",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "TxnFailed",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "UserAlreadyWhitelisted",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "YouAreNotAnInvestor",
+    "type": "error"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "projectId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "investor",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amountInvested",
+        "type": "uint256"
+      }
+    ],
+    "name": "InvestmentMade",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
+    ],
+    "name": "Paused",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "projectId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "projectOwner",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "token",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "minInvestment",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "maxInvestment",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "maxCap",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "endTimeInMinutes",
+        "type": "uint256"
+      }
+    ],
+    "name": "ProjectListed",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "value",
+        "type": "uint256"
+      }
+    ],
+    "name": "Swept",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
+    ],
+    "name": "Unpaused",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_projectId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "_user",
+        "type": "address"
+      }
+    ],
+    "name": "AddUserForAParticularProject",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_projectId",
+        "type": "uint256"
+      }
+    ],
+    "name": "cancelIDOProject",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_newAdmin",
+        "type": "address"
+      }
+    ],
+    "name": "changeLaunchPadAdmin",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_projectId",
+        "type": "uint256"
+      }
+    ],
+    "name": "claimTokens",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_projectID",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "userAddr",
+        "type": "address"
+      }
+    ],
+    "name": "getAUserAllocationForAProject",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getContractBal",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getCurrentProjectID",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "projectId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getIDOTokenBalanceInLaunchPad",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_projectID",
+        "type": "uint256"
+      }
+    ],
+    "name": "getInvestorsForAParticularProject",
+    "outputs": [
+      {
+        "internalType": "address[]",
+        "name": "",
+        "type": "address[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_projectID",
+        "type": "uint256"
+      }
+    ],
+    "name": "getProjectDetails",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "projectOwner",
+            "type": "address"
+          },
+          {
+            "internalType": "contract IERC20",
+            "name": "token",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "tokenPrice",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "minInvestment",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "maxInvestment",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "maxCap",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "softCap",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "hardCap",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "liquidityPercentToken",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "liquidityPercentEth",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "startTime",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "IDOduration",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "isActive",
+            "type": "bool"
+          },
+          {
+            "internalType": "uint256",
+            "name": "totalAmountRaised",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "totalTokenIDOClaimed",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address[]",
+            "name": "whiteListedAddresses",
+            "type": "address[]"
+          },
+          {
+            "internalType": "address[]",
+            "name": "projectInvestors",
+            "type": "address[]"
+          },
+          {
+            "internalType": "bool",
+            "name": "withdrawn",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct Launchpad.IDOProject",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_projectID",
+        "type": "uint256"
+      }
+    ],
+    "name": "getProjectMaxCap",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_projectID",
+        "type": "uint256"
+      }
+    ],
+    "name": "getProjectTotalAmtRaised",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_projectID",
+        "type": "uint256"
+      }
+    ],
+    "name": "getProjectTotalTokenIDOClaimed",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "projectId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getTimeLeftForAParticularProject",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "projectId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getTokenLeftForAParticularIDO",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "projectId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getTotalInvestorsForAParticularProject",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_projectID",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "_i",
+        "type": "address"
+      }
+    ],
+    "name": "getUserInvestmentForAnIDOInCELO",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_projectId",
+        "type": "uint256"
+      }
+    ],
+    "name": "invest",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "launchPadadmin",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "contract IERC20",
+        "name": "_token",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_minInvestment",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_maxInvestment",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_maxCap",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_softCap",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_hardCap",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_liquidityPercentToken",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_liquidityPercentEth",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_startTime",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_endTime",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address[]",
+        "name": "_whiteListedUsers",
+        "type": "address[]"
+      }
+    ],
+    "name": "listProject",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "pause",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "paused",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_projectId",
+        "type": "uint256"
+      }
+    ],
+    "name": "refundTokens",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_projectID",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "to",
+        "type": "address"
+      }
+    ],
+    "name": "sweep",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "unpause",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_projectID",
+        "type": "uint256"
+      }
+    ],
+    "name": "withdrawAmountRaised",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  }
+]

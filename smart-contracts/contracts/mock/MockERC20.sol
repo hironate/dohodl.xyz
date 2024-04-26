@@ -7,4 +7,8 @@ contract MockERC20 is ERC20 {
     constructor() ERC20("TestToken", "tT") {
         _mint(msg.sender, 1000000);
     }
+
+    function mint(address destination, uint256 amount) public {
+        _mint(destination, amount);
+    }
 }
