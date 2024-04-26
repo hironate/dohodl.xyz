@@ -19,7 +19,7 @@ module.exports = {
       chainId: 1337,
     },
     mainnet: {
-      url: `https://mainnet.infura.io/v3/${ALCHEMY_API_KEY}`,
+      url: `https://gateway.tenderly.co/public/mainnet`,
       accounts: [`${ACCOUNT_PRIVATE_KEY}`],
       chainId: 1,
       gas: 'auto',
