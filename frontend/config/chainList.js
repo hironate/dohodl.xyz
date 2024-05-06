@@ -43,18 +43,17 @@ export const chainList = [
     etherscan: "https://polygonscan.com",
   },
   {
-    name: "Mumbai",
+    name: "Amoy",
     chain: "Polygon",
-    chainId: 80001,
+    chainId: 80002,
     nativeCurrencySymbol: "MATIC",
     rpc: [
-      `https://polygon-mumbai.infura.io/v3/${process.env.NEXT_PUBLIC_INFURA_API_KEY}`,
+      `https://polygon-amoy.infura.io/v3/${process.env.NEXT_PUBLIC_INFURA_API_KEY}`,
     ],
     logoUrl: "/images/chainLogo/polygon.png",
-    subgraphApiUrl: process.env.NEXT_PUBLIC_MUMBAI_SUBGRAPH_URL,
-    subgraphUrlErc20Hodl:
-      process.env.NEXT_PUBLIC_MUMBAI_ERC20_HODL_SUBGRAPH_URL,
-    etherscan: "https://mumbai.polygonscan.com",
+    subgraphApiUrl: process.env.NEXT_PUBLIC_AMOY_SUBGRAPH_URL,
+    subgraphUrlErc20Hodl: process.env.NEXT_PUBLIC_AMOY_ERC20_HODL_SUBGRAPH_URL,
+    etherscan: "https://amoy.polygonscan.com",
   },
   {
     name: "Binance Mainnet",

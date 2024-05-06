@@ -1,17 +1,31 @@
-import { addNewNetwork } from './addNewNetwork';
-export async function changeNetwork({ chainId, name, rpc }) {
-  if (typeof window.ethereum !== 'undefined') {
+import { addNewNetwork } from "./addNewNetwork";
+export async function changeNetwork({
+  chainId,
+  name,
+  rpc,
+  logoUrl,
+  nativeCurrencySymbol,
+  etherscan,
+}) {
+  if (typeof window.ethereum !== "undefined") {
     try {
       await ethereum.request({
-        method: 'wallet_switchEthereumChain',
+        method: "wallet_switchEthereumChain",
         params: [{ chainId: `0x${Number(chainId).toString(16)}` }],
       });
-      console.log('network change success');
+      console.log("network change success");
     } catch (switchError) {
       if (switchError.code === 4001) {
-        console.log('Reject switch network request');
+        console.log("Reject switch network request");
       } else if (switchError.code === 4902) {
-        await addNewNetwork({ chainId: chainId, name: name, rpc: rpc });
+        await addNewNetwork({
+          chainId: chainId,
+          name: name,
+          rpc: rpc,
+          logoUrl,
+          nativeCurrencySymbol,
+          etherscan,
+        });
       }
     }
   }

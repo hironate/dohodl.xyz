@@ -4,11 +4,11 @@ schema:
 dataSources:
   - kind: ethereum
     name: Hodl
-    network: base-sepolia
+    network: bsc
     source:
-      address: "0xb355534407E51ea8f0FB525DB6Fc4Af6404dB551"
+      address: "0x4b75f6eC17A019fC61B8f442243B665fFC8bC233"
       abi: Hodl
-      startBlock: 8708956
+      startBlock: 38195943
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
