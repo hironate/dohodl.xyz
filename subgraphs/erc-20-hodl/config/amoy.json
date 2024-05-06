@@ -1,5 +1,5 @@
 {
-  "network": "chapel",
+  "network": "polygon-amoy",
   "hodlAddress": "0xb355534407E51ea8f0FB525DB6Fc4Af6404dB551",
-  "hodl-start-block": 39804262
+  "hodl-start-block": 6322426
 }
