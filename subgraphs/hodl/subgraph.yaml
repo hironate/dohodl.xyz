@@ -4,11 +4,11 @@ schema:
 dataSources:
   - kind: ethereum
     name: Hodl
-    network: sepolia
+    network: base-sepolia
     source:
       address: "0x3E7824b8ec5F60B8C18494617a3AAa518DAd2F25"
       abi: Hodl
-      startBlock: 3503643
+      startBlock: 8706012
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -25,3 +25,26 @@ dataSources:
         - event: Withdrawn(uint256,uint256)
           handler: handleWithdrawn
       file: ./src/hodl.ts
+  - kind: ethereum
+    name: ERC20Hodl
+    network: base-sepolia
+    source:
+      address: "0xb355534407E51ea8f0FB525DB6Fc4Af6404dB551"
+      abi: ERC20Hodl
+      startBlock: 8708956
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Deposited
+        - Withdrawn
+      abis:
+        - name: ERC20Hodl
+          file: ./abis/ERC20Hodl.json
+      eventHandlers:
+        - event: Deposited(uint256,uint256,uint256,address,address,uint256,bool)
+          handler: handleDeposited
+        - event: Withdrawn(uint256,uint256,address)
+          handler: handleWithdrawn
+      file: ./src/erc20Hodl.ts

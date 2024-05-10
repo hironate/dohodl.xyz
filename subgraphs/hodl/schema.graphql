@@ -1,4 +1,4 @@
-type Deposited @entity {
+type Deposit @entity {
   id: ID!
   unlockTime: BigInt! # uint256
   lockedTime: BigInt! # uint256
@@ -8,7 +8,7 @@ type Deposited @entity {
   transationHash: String! # string
 }
 
-type Withdrawn @entity {
+type Withdrawal @entity {
   id: ID!
   lockedTime: BigInt! # uint256
   unlockTime: BigInt! # uint256
@@ -38,4 +38,37 @@ type Stat @entity {
   totalLocked: BigInt! # uint256
   activeLocked: BigInt! # uint256
   totalWithdrawn: BigInt! # uint256
+}
+
+type ERC20Deposit @entity {
+  id: ID!
+  unlockTime: BigInt! # uint256
+  lockedTime: BigInt! # uint256
+  owner: Bytes! # address
+  tokenAddress: Bytes! # address
+  amount: BigInt! # uint256
+  withdrawn: Boolean! # bool
+  transationHash: String! # string
+}
+
+type ERC20Withdrawal @entity {
+  id: ID!
+  lockedTime: BigInt! # uint256
+  unlockTime: BigInt! # uint256
+  unlockedAt: BigInt! # uint256
+  owner: Bytes! # address
+  tokenAddress: Bytes! # address
+  amount: BigInt! # uint256
+  transationHash: String! # string
+}
+
+type ERC20Activity @entity {
+  id: ID!
+  activityType: String!
+  depositId: String! # string
+  timestamp: BigInt! # uint256
+  user: Bytes! # address
+  tokenAddress: Bytes! # address
+  amount: BigInt! # uint256
+  transctionHash: String! # string
 }
