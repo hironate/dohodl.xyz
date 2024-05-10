@@ -96,7 +96,7 @@ const AllLocks = () => {
   const fetchAllLocks = async () => {
     const query = `
           query {
-          depositeds(orderBy:lockedTime  orderDirection:desc){
+          deposits(orderBy:lockedTime  orderDirection:desc){
           id
           unlockTime
           lockedTime
@@ -116,8 +116,8 @@ const AllLocks = () => {
       setLoding(true);
       const fetchedData = await client.query(query).toPromise();
 
-      if (fetchedData.data.depositeds) {
-        setData(fetchedData.data.depositeds);
+      if (fetchedData.data.deposits) {
+        setData(fetchedData.data.deposits);
       }
     } catch (e) {}
 

@@ -10,7 +10,7 @@ const TokenLockups = () => {
     (state) => state.WalletDataReducer.currentAccount
   );
   const subgraphApiUrl = useSelector(
-    (state) => state.ChainDataReducer.subgraphUrlErc20Hodl
+    (state) => state.ChainDataReducer.subgraphApiUrl
   );
 
   const [loading, setLoding] = useState(false);
@@ -25,7 +25,7 @@ const TokenLockups = () => {
 
     const depositQuery = `
       query {
-      depositeds(where:{owner:${account}} orderBy:lockedTime  orderDirection:desc){
+      erc20Deposits(where:{owner:${account}} orderBy:lockedTime  orderDirection:desc){
       id
       unlockTime
       lockedTime
@@ -44,8 +44,8 @@ const TokenLockups = () => {
 
       setLoding(true);
       const data = await client.query(depositQuery).toPromise();
-      if (data.data.depositeds) {
-        setData(data.data.depositeds);
+      if (data.data.erc20Deposits) {
+        setData(data.data.erc20Deposits);
       }
     } catch (e) {}
 

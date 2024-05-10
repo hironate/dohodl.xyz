@@ -25,3 +25,26 @@ dataSources:
         - event: Withdrawn(uint256,uint256)
           handler: handleWithdrawn
       file: ./src/hodl.ts
+  - kind: ethereum
+    name: ERC20Hodl
+    network: {{network}}
+    source:
+      address: "{{erc20HodlAddress}}"
+      abi: ERC20Hodl
+      startBlock: {{ erc-20-hodl-start-block }}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Deposited
+        - Withdrawn
+      abis:
+        - name: ERC20Hodl
+          file: ./abis/ERC20Hodl.json
+      eventHandlers:
+        - event: Deposited(uint256,uint256,uint256,address,address,uint256,bool)
+          handler: handleDeposited
+        - event: Withdrawn(uint256,uint256,address)
+          handler: handleWithdrawn
+      file: ./src/erc20Hodl.ts

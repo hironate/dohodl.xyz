@@ -25,7 +25,7 @@ const Lockups = () => {
 
     const depositQuery = `
       query {
-      depositeds(where:{owner:${account}} orderBy:lockedTime  orderDirection:desc){
+      deposits(where:{owner:${account}} orderBy:lockedTime  orderDirection:desc){
       id
       unlockTime
       lockedTime
@@ -44,8 +44,8 @@ const Lockups = () => {
       setLoding(true);
       const data = await client.query(depositQuery).toPromise();
 
-      if (data.data.depositeds) {
-        setData(data.data.depositeds);
+      if (data.data.deposits) {
+        setData(data.data.deposits);
       }
     } catch (e) {}
 
