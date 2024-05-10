@@ -9,8 +9,6 @@ export const chainList = [
     ],
     logoUrl: "/images/chainLogo/ethereum.png",
     subgraphApiUrl: process.env.NEXT_PUBLIC_MAINNET_SUBGRAPH_URL,
-    subgraphUrlErc20Hodl:
-      process.env.NEXT_PUBLIC_MAINNET_ERC20_HODL_SUBGRAPH_URL,
     etherscan: "https://etherscan.io",
   },
   {
@@ -23,8 +21,6 @@ export const chainList = [
     ],
     logoUrl: "/images/chainLogo/ethereum.png",
     subgraphApiUrl: process.env.NEXT_PUBLIC_SEPOLIA_SUBGRAPH_URL,
-    subgraphUrlErc20Hodl:
-      process.env.NEXT_PUBLIC_SEPOLIA_ERC20_HODL_SUBGRAPH_URL,
     etherscan: "https://goerli.etherscan.io",
   },
 
@@ -38,8 +34,6 @@ export const chainList = [
     ],
     logoUrl: "/images/chainLogo/polygon.png",
     subgraphApiUrl: process.env.NEXT_PUBLIC_POLYGON_SUBGRAPH_URL,
-    subgraphUrlErc20Hodl:
-      process.env.NEXT_PUBLIC_POLYGON_ERC20_HODL_SUBGRAPH_URL,
     etherscan: "https://polygonscan.com",
   },
   {
@@ -52,7 +46,6 @@ export const chainList = [
     ],
     logoUrl: "/images/chainLogo/polygon.png",
     subgraphApiUrl: process.env.NEXT_PUBLIC_AMOY_SUBGRAPH_URL,
-    subgraphUrlErc20Hodl: process.env.NEXT_PUBLIC_AMOY_ERC20_HODL_SUBGRAPH_URL,
     etherscan: "https://amoy.polygonscan.com",
   },
   {
@@ -63,8 +56,6 @@ export const chainList = [
     rpc: ["https://bsc-dataseed1.binance.org"],
     logoUrl: "/images/chainLogo/binance.png",
     subgraphApiUrl: process.env.NEXT_PUBLIC_BINANCE_SUBGRAPH_URL,
-    subgraphUrlErc20Hodl:
-      process.env.NEXT_PUBLIC_BINANCE_ERC20_HODL_SUBGRAPH_URL,
     etherscan: "https://bscscan.com",
   },
   {
@@ -75,8 +66,6 @@ export const chainList = [
     rpc: ["https://data-seed-prebsc-1-s1.binance.org:8545"],
     logoUrl: "/images/chainLogo/binance.png",
     subgraphApiUrl: process.env.NEXT_PUBLIC_BINANCE_TESTNET_SUBGRAPH_URL,
-    subgraphUrlErc20Hodl:
-      process.env.NEXT_PUBLIC_BINANCE_TESTNET_ERC20_HODL_SUBGRAPH_URL,
     etherscan: "https://testnet.bscscan.com",
   },
   {
@@ -87,7 +76,6 @@ export const chainList = [
     rpc: ["https://mainnet.base.org"],
     logoUrl: "/images/chainLogo/base.png",
     subgraphApiUrl: process.env.NEXT_PUBLIC_BASE_SUBGRAPH_URL,
-    subgraphUrlErc20Hodl: process.env.NEXT_PUBLIC_BASE_ERC20_HODL_SUBGRAPH_URL,
     etherscan: "https://basescan.org",
   },
   {
@@ -98,8 +86,6 @@ export const chainList = [
     rpc: ["https://sepolia.base.org"],
     logoUrl: "/images/chainLogo/base.png",
     subgraphApiUrl: process.env.NEXT_PUBLIC_BASE_TESTNET_SUBGRAPH_URL,
-    subgraphUrlErc20Hodl:
-      process.env.NEXT_PUBLIC_BASE_TESTNET_ERC20_HODL_SUBGRAPH_URL,
     etherscan: "https://sepolia.basescan.org",
   },
 ];
