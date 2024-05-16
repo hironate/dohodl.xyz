@@ -3,10 +3,16 @@ import {
   Deposited as DepositedEvent,
   Withdrawn as WithdrawnEvent,
 } from "../generated/Hodl/Hodl";
-import { Activity, Deposit, Stat, Withdrawal } from "../generated/schema";
+import {
+  Activity,
+  Deposit,
+  Stat,
+  UserStat,
+  Withdrawal,
+} from "../generated/schema";
 
 export function handleDeposited(event: DepositedEvent): void {
-  let entity = new Deposit(event.params.id.toString());
+  let entity = new Deposit(event.params.id.toString() + "_Native");
   entity.unlockTime = event.params.unlockTime;
   entity.lockedTime = event.params.lockedTime;
   entity.owner = event.params.owner;
@@ -15,7 +21,9 @@ export function handleDeposited(event: DepositedEvent): void {
   entity.transationHash = event.transaction.hash.toHex();
   entity.save();
 
-  let activityEntity = new Activity(event.params.id.toString() + "_Deposit");
+  let activityEntity = new Activity(
+    event.params.id.toString() + "_Native_Deposit"
+  );
   activityEntity.activityType = "Deposit";
   activityEntity.depositId = event.params.id.toString();
   activityEntity.timestamp = event.block.timestamp;
@@ -32,21 +40,34 @@ export function handleDeposited(event: DepositedEvent): void {
     stateEntity.totalWithdrawn = BigInt.fromI32(0);
   }
   stateEntity.totalLocked = stateEntity.totalLocked.plus(event.params.amount);
-
   stateEntity.activeLocked = stateEntity.totalLocked.minus(
     stateEntity.totalWithdrawn
   );
-
   stateEntity.save();
+
+  let userStatEntity = UserStat.load(event.params.owner.toHexString());
+  if (!userStatEntity) {
+    userStatEntity = new UserStat(event.params.owner.toHexString());
+    userStatEntity.totalLocked = BigInt.fromI32(0);
+    userStatEntity.activeLocked = BigInt.fromI32(0);
+    userStatEntity.totalWithdrawn = BigInt.fromI32(0);
+  }
+  userStatEntity.totalLocked = userStatEntity.totalLocked.plus(
+    event.params.amount
+  );
+  userStatEntity.activeLocked = userStatEntity.totalLocked.minus(
+    userStatEntity.totalWithdrawn
+  );
+  userStatEntity.save();
 }
 
 export function handleWithdrawn(event: WithdrawnEvent): void {
-  let depositEntity = Deposit.load(event.params.id.toString());
+  let depositEntity = Deposit.load(event.params.id.toString() + "_Native");
   if (!depositEntity) return;
   depositEntity.withdrawn = true;
   depositEntity.save();
 
-  let withdrawnEntity = new Withdrawal(event.params.id.toString());
+  let withdrawnEntity = new Withdrawal(event.params.id.toString() + "_Native");
   withdrawnEntity.unlockTime = depositEntity.unlockTime;
   withdrawnEntity.lockedTime = depositEntity.lockedTime;
   withdrawnEntity.unlockedAt = event.block.timestamp;
@@ -55,8 +76,9 @@ export function handleWithdrawn(event: WithdrawnEvent): void {
   withdrawnEntity.transationHash = event.transaction.hash.toHex();
   withdrawnEntity.save();
 
-  let activityEntity = new Activity(event.params.id.toString() + "_Withdraw");
-  activityEntity;
+  let activityEntity = new Activity(
+    event.params.id.toString() + "_Native_Withdraw"
+  );
   activityEntity.activityType = "Withdraw";
   activityEntity.depositId = event.params.id.toString();
   activityEntity.timestamp = event.block.timestamp;
@@ -81,4 +103,20 @@ export function handleWithdrawn(event: WithdrawnEvent): void {
   );
 
   stateEntity.save();
+
+  let userStatEntity = UserStat.load(depositEntity.owner.toHexString());
+  if (!userStatEntity) {
+    userStatEntity = new UserStat(depositEntity.owner.toHexString());
+    userStatEntity.totalLocked = BigInt.fromI32(0);
+    userStatEntity.activeLocked = BigInt.fromI32(0);
+    userStatEntity.totalWithdrawn = BigInt.fromI32(0);
+  }
+  userStatEntity.totalWithdrawn = userStatEntity.totalWithdrawn.plus(
+    event.params.amount
+  );
+
+  userStatEntity.activeLocked = userStatEntity.totalLocked.minus(
+    userStatEntity.totalWithdrawn
+  );
+  userStatEntity.save();
 }

@@ -2,14 +2,10 @@ import {
   Deposited as DepositedEvent,
   Withdrawn as WithdrawnEvent,
 } from "../generated/ERC20Hodl/ERC20Hodl";
-import {
-  ERC20Activity,
-  ERC20Deposit,
-  ERC20Withdrawal,
-} from "../generated/schema";
+import { Activity, Deposit, Withdrawal } from "../generated/schema";
 
 export function handleDeposited(event: DepositedEvent): void {
-  let entity = new ERC20Deposit(event.params.id.toString());
+  let entity = new Deposit(event.params.id.toString() + "_ERC20");
   entity.unlockTime = event.params.unlockTime;
   entity.lockedTime = event.params.lockedTime;
   entity.owner = event.params.owner;
@@ -19,8 +15,8 @@ export function handleDeposited(event: DepositedEvent): void {
   entity.transationHash = event.transaction.hash.toHex();
   entity.save();
 
-  let activityEntity = new ERC20Activity(
-    event.params.id.toString() + "_Deposit"
+  let activityEntity = new Activity(
+    event.params.id.toString() + "_ERC20_Deposit"
   );
   activityEntity.activityType = "Deposit";
   activityEntity.depositId = event.params.id.toString();
@@ -33,12 +29,12 @@ export function handleDeposited(event: DepositedEvent): void {
 }
 
 export function handleWithdrawn(event: WithdrawnEvent): void {
-  let depositEntity = ERC20Deposit.load(event.params.id.toString());
+  let depositEntity = Deposit.load(event.params.id.toString() + "_ERC20");
   if (!depositEntity) return;
   depositEntity.withdrawn = true;
   depositEntity.save();
 
-  let withdrawnEntity = new ERC20Withdrawal(event.params.id.toString());
+  let withdrawnEntity = new Withdrawal(event.params.id.toString() + "_ERC20");
   withdrawnEntity.unlockTime = depositEntity.unlockTime;
   withdrawnEntity.lockedTime = depositEntity.lockedTime;
   withdrawnEntity.unlockedAt = event.block.timestamp;
@@ -48,10 +44,9 @@ export function handleWithdrawn(event: WithdrawnEvent): void {
   withdrawnEntity.transationHash = event.transaction.hash.toHex();
   withdrawnEntity.save();
 
-  let activityEntity = new ERC20Activity(
-    event.params.id.toString() + "_Withdraw"
+  let activityEntity = new Activity(
+    event.params.id.toString() + "_ERC20_Withdraw"
   );
-  activityEntity;
   activityEntity.activityType = "Withdraw";
   activityEntity.depositId = event.params.id.toString();
   activityEntity.timestamp = event.block.timestamp;

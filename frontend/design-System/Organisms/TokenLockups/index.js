@@ -25,7 +25,7 @@ const TokenLockups = () => {
 
     const depositQuery = `
       query {
-      erc20Deposits(where:{owner:${account}} orderBy:lockedTime  orderDirection:desc){
+      deposits(where:{tokenAddress_not:null,owner:${account}} orderBy:lockedTime  orderDirection:desc){
       id
       unlockTime
       lockedTime
@@ -44,8 +44,8 @@ const TokenLockups = () => {
 
       setLoding(true);
       const data = await client.query(depositQuery).toPromise();
-      if (data.data.erc20Deposits) {
-        setData(data.data.erc20Deposits);
+      if (data.data.deposits) {
+        setData(data.data.deposits);
       }
     } catch (e) {}
 
