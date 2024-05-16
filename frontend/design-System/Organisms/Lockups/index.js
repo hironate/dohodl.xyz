@@ -25,7 +25,7 @@ const Lockups = () => {
 
     const depositQuery = `
       query {
-      deposits(where:{owner:${account}} orderBy:lockedTime  orderDirection:desc){
+      deposits(where:{owner:${account},tokenAddress:null} orderBy:lockedTime  orderDirection:desc){
       id
       unlockTime
       lockedTime

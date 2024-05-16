@@ -96,7 +96,7 @@ const AllLocks = () => {
   const fetchAllLocks = async () => {
     const query = `
           query {
-          deposits(orderBy:lockedTime  orderDirection:desc){
+          deposits(where:{tokenAddress:null} orderBy:lockedTime  orderDirection:desc){
           id
           unlockTime
           lockedTime

@@ -21,7 +21,7 @@ export const chainList = [
     ],
     logoUrl: "/images/chainLogo/ethereum.png",
     subgraphApiUrl: process.env.NEXT_PUBLIC_SEPOLIA_SUBGRAPH_URL,
-    etherscan: "https://goerli.etherscan.io",
+    etherscan: "https://sepolia.etherscan.io",
   },
 
   {

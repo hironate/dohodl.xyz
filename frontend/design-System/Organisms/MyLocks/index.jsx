@@ -47,7 +47,7 @@ const MyLocks = ({ loading, data, fetchHodlData, isErc20Hodl = false }) => {
     const hodlData = data[i];
     const row = {
       sNo: i + 1,
-      id: hodlData.id,
+      id: hodlData.id.split("_")[0],
       lockDate: timeStampToDate(hodlData.lockedTime),
       unlockDate: timeStampToDate(hodlData.unlockTime),
       lockAmount: getHodlAmount(hodlData.amount),
