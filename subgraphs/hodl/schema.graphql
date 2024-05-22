@@ -6,7 +6,7 @@ type Deposit @entity {
   tokenAddress: Bytes # address
   amount: BigInt! # uint256
   withdrawn: Boolean! # bool
-  transationHash: String! # string
+  transactionHash: Bytes # address
 }
 
 type Withdrawal @entity {
@@ -17,7 +17,7 @@ type Withdrawal @entity {
   owner: Bytes! # address
   tokenAddress: Bytes # address
   amount: BigInt! # uint256
-  transationHash: String! # string
+  transactionHash: Bytes # address
 }
 
 enum ActivityType {
@@ -33,7 +33,7 @@ type Activity @entity {
   user: Bytes! # address
   amount: BigInt! # uint256
   tokenAddress: Bytes # address
-  transctionHash: String! # string
+  transactionHash: Bytes # address
 }
 
 type Stat @entity {

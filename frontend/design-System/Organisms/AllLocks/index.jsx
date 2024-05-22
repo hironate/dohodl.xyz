@@ -103,7 +103,7 @@ const AllLocks = () => {
           owner
           amount
           withdrawn
-          transationHash
+          transactionHash
           }
           }
           `;
@@ -136,7 +136,7 @@ const AllLocks = () => {
         unlockDate: timeStampToDate(hodlData.unlockTime),
         lockAmount: getHodlAmount(hodlData.amount),
         hodlStatus: getHodlStatus(hodlData.withdrawn, hodlData.unlockTime),
-        transationHash: hodlData.transationHash,
+        transationHash: hodlData.transactionHash,
         view: viewHodl(),
       };
 
