@@ -12,7 +12,7 @@ export function handleDeposited(event: DepositedEvent): void {
   entity.tokenAddress = event.params.tokenAddress;
   entity.amount = event.params.amount;
   entity.withdrawn = event.params.withdrawn;
-  entity.transationHash = event.transaction.hash.toHex();
+  entity.transactionHash = event.transaction.hash;
   entity.save();
 
   let activityEntity = new Activity(
@@ -24,7 +24,7 @@ export function handleDeposited(event: DepositedEvent): void {
   activityEntity.user = event.params.owner;
   activityEntity.tokenAddress = event.params.tokenAddress;
   activityEntity.amount = event.params.amount;
-  activityEntity.transctionHash = event.transaction.hash.toHex();
+  activityEntity.transactionHash = event.transaction.hash;
   activityEntity.save();
 }
 
@@ -41,7 +41,7 @@ export function handleWithdrawn(event: WithdrawnEvent): void {
   withdrawnEntity.owner = depositEntity.owner;
   withdrawnEntity.tokenAddress = event.params.tokenAddress;
   withdrawnEntity.amount = event.params.amount;
-  withdrawnEntity.transationHash = event.transaction.hash.toHex();
+  withdrawnEntity.transactionHash = event.transaction.hash;
   withdrawnEntity.save();
 
   let activityEntity = new Activity(
@@ -53,6 +53,6 @@ export function handleWithdrawn(event: WithdrawnEvent): void {
   activityEntity.user = depositEntity.owner;
   activityEntity.tokenAddress = event.params.tokenAddress;
   activityEntity.amount = event.params.amount;
-  activityEntity.transctionHash = event.transaction.hash.toHex();
+  activityEntity.transactionHash = event.transaction.hash;
   activityEntity.save();
 }

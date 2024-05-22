@@ -18,7 +18,7 @@ export function handleDeposited(event: DepositedEvent): void {
   entity.owner = event.params.owner;
   entity.amount = event.params.amount;
   entity.withdrawn = event.params.withdrawn;
-  entity.transationHash = event.transaction.hash.toHex();
+  entity.transactionHash = event.transaction.hash;
   entity.save();
 
   let activityEntity = new Activity(
@@ -29,7 +29,7 @@ export function handleDeposited(event: DepositedEvent): void {
   activityEntity.timestamp = event.block.timestamp;
   activityEntity.user = event.params.owner;
   activityEntity.amount = event.params.amount;
-  activityEntity.transctionHash = event.transaction.hash.toHex();
+  activityEntity.transactionHash = event.transaction.hash;
   activityEntity.save();
 
   let stateEntity = Stat.load("hodl-locked-values");
@@ -73,7 +73,7 @@ export function handleWithdrawn(event: WithdrawnEvent): void {
   withdrawnEntity.unlockedAt = event.block.timestamp;
   withdrawnEntity.owner = depositEntity.owner;
   withdrawnEntity.amount = event.params.amount;
-  withdrawnEntity.transationHash = event.transaction.hash.toHex();
+  withdrawnEntity.transactionHash = event.transaction.hash;
   withdrawnEntity.save();
 
   let activityEntity = new Activity(
@@ -84,7 +84,7 @@ export function handleWithdrawn(event: WithdrawnEvent): void {
   activityEntity.timestamp = event.block.timestamp;
   activityEntity.user = depositEntity.owner;
   activityEntity.amount = event.params.amount;
-  activityEntity.transctionHash = event.transaction.hash.toHex();
+  activityEntity.transactionHash = event.transaction.hash;
   activityEntity.save();
 
   let stateEntity = Stat.load("hodl-locked-values");

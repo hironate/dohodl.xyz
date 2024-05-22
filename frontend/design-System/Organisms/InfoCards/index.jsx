@@ -21,7 +21,7 @@ const InfoCards = () => {
   const fetchAllLocks = async () => {
     const query = `
     query {
-    depositeds{    
+    deposits(where:{tokenAddress:null}){    
     id
     amount
     withdrawn
@@ -35,8 +35,8 @@ const InfoCards = () => {
       });
 
       const allLocks = await client.query(query).toPromise();
-      if (allLocks.data.depositeds) {
-        data = allLocks.data.depositeds;
+      if (allLocks.data.deposits) {
+        data = allLocks.data.deposits;
       }
     } catch (e) {}
 
