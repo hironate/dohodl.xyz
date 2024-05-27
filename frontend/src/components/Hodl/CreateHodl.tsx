@@ -286,11 +286,11 @@ const CreateHodl = ({ onHodl }: { onHodl?: () => Promise<void> }) => {
               <DatePicker
                 label="Pick a Date"
                 className="w-full md:w-1/2 xl:w-full 2xl:w-1/2"
-                onSelect={(date: Date) => {
+                onSelect={(date: string) => {
                   if (date)
                     setValues((prev) => ({
                       ...prev,
-                      date,
+                      date: new Date(date),
                       durationAmount: "",
                     }));
                 }}

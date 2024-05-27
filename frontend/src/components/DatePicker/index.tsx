@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 const DatePicker = ({
   label = "Select Date",
   className = "",
-  onSelect = (Date: Date) => {},
+  onSelect = (Date: string) => {},
   clearDate = false,
 }) => {
   const [flat_picker, setFlatPicker] = useState<Instance | Instance[]>();
@@ -34,7 +34,7 @@ const DatePicker = ({
         nextArrow:
           '<svg className="fill-current" width="7" height="11"><path d="M1.4 10.8L0 9.4l4-4-4-4L1.4 0l5.4 5.4z" /></svg>',
         onChange: (date) => {
-          onSelect?.(date[0]);
+          onSelect?.(date[0].toString());
         },
         minDate: moment().add({ day: 1 }).toDate(),
         allowInput: false,

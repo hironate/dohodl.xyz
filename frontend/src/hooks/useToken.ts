@@ -41,7 +41,7 @@ const useToken = (tokenAddress: string) => {
   const { data: tokenAllowance, refetch: refetchAllowance } = useQuery({
     queryKey: ["allowance", address],
     queryFn: async (): Promise<BigInt> => {
-      let data = await contract.read("allowance", [
+      let data: any = await contract.read("allowance", [
         address,
         ERC20HodlContractAddress,
       ]);
@@ -101,7 +101,7 @@ const useToken = (tokenAddress: string) => {
           newAllowance = formatAmount({
             amount: newAllowance,
             decimals,
-          });
+          }).toString();
 
         if (!newAllowance || newAllowance < tokenAmount) {
           throw new Error("Insufficient Allowance");

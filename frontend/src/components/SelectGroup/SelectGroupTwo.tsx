@@ -34,8 +34,12 @@ const SelectGroupTwo = ({
         <select
           value={selectedOption}
           onChange={(e) => {
-            setSelectedOption(e.target.value);
-            onSelect?.(DURATION_TO_DAY[e.target.value]);
+            const value = e.target.value as keyof typeof DURATION_TO_DAY;
+            setSelectedOption(value);
+
+            if (["Day", "Month", "Week", "Year"].includes(value)) {
+              onSelect?.(DURATION_TO_DAY[value]);
+            }
             changeTextColor();
           }}
           className={`relative z-20 w-full cursor-pointer appearance-none rounded-md border border-stroke bg-transparent px-4 py-2 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input ${

@@ -7,9 +7,9 @@ import {
 import { getContractAbi } from "./contract";
 
 export const Contract = (
-  address: `0x${string}` | string,
+  address: any,
   abi: any,
-  config: Config,
+  config: any,
   chainId?: number,
 ) => {
   return {
@@ -65,7 +65,7 @@ export const Contract = (
 
 export const TokenContract = (
   address: `0x${string}` | string,
-  config: Config,
+  config: Config | any,
   chainId?: number,
 ) => {
   const contract = Contract(address, getContractAbi("ERC20"), config, chainId);

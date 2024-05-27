@@ -102,14 +102,15 @@ export const getNattiveAmountValueInUsd = async ({
         return {
           chainName,
           valueLockedInUsd:
-            (Number(amount) * prices["ethereum"]).toFixed(2) || "0",
+            (Number(amount) * Number(prices?.["ethereum"])).toFixed(2) || "0",
         };
       }
       return {
         chainName,
         valueLockedInUsd:
           (
-            Number(amount) * prices[CHAIN_NAME_TO_COINGECKO_COIN_ID[chainName]]
+            Number(amount) *
+            Number(prices?.[CHAIN_NAME_TO_COINGECKO_COIN_ID[chainName]])
           ).toFixed(2) || "0",
       };
     });

@@ -77,9 +77,11 @@ const ActivityRow = ({
         }`}
         key={index}
       >
-        <div className="flex items-center gap-3 p-2.5 xl:p-5">
-          <p className="text-black dark:text-white ">{index + 1}</p>
-        </div>
+        {index && (
+          <div className="flex items-center gap-3 p-2.5 xl:p-5">
+            <p className="text-black dark:text-white ">{index + 1}</p>
+          </div>
+        )}
 
         <div className="flex w-full items-center p-2.5 !text-center xl:p-5">
           <ChainLogo

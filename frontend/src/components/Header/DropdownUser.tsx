@@ -35,7 +35,7 @@ const DropdownUser = () => {
 
         <span className="hidden text-right lg:block"></span>
 
-        <Jazzicon diameter={41} seed={jsNumberForAddress(address)} />
+        <Jazzicon diameter={41} seed={jsNumberForAddress(address || "0x0")} />
       </div>
       {/* <!-- Dropdown Start --> */}
       <div

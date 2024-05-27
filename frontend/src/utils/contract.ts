@@ -79,7 +79,7 @@ export const getHodlContract = ({
   }: {
     duration: number;
     lockAmount: string;
-    tokenAddress?: `0x${string}`;
+    tokenAddress?: string;
   }) {
     if (isErc20)
       await contract.write("deposit", [
