@@ -125,3 +125,5 @@ export const CHAIN_ID_TO_EXPLORER_BASE_URI: { [chainId: number]: string } = {
   [base.id]: "https://basescan.org",
   [baseSepolia.id]: "https://sepolia.basescan.org",
 };
+
+export const WALLETCONNECT_PROJECT_ID = "918a5f599cd08ceda8a8fde864cdc062";

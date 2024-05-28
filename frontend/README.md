@@ -1,114 +1,73 @@
-# TailAdmin Next.js - Free Next.js Tailwind Admin Dashboard Template
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-TailAdmin is a free and open-source admin dashboard template built on **Next.js and Tailwind CSS** providing developers with everything they need to create a feature-rich and data-driven: back-end, dashboard, or admin panel solution for any sort of web project.
+## Getting Started
 
-[![tailwind nextjs admin template](https://github.com/TailAdmin/free-nextjs-admin-dashboard/blob/main/tailadmin-nextjs.jpg)](https://nextjs-demo.tailadmin.com/)
+#### Environment Configuration
 
-With TailAdmin Next.js, you get access to all the necessary dashboard UI components, elements, and pages required to build a high-quality and complete dashboard or admin panel. Whether you're building a dashboard or admin panel for a complex web application or a simple website. 
+The project includes a `.env.example` file, which serves as a template for your environment configuration. To get started, follow these steps:
 
-TailAdmin utilizes the powerful features of **Next.js 13** and common features of Next.js such as server-side rendering (SSR), static site generation (SSG), and seamless API route integration. Combined with the advancements of **React 18** and the robustness of **TypeScript**, TailAdmin is the perfect solution to help get your project up and running quickly.
+1. **Create a Copy of .env.example:**
 
-### [✨ Visit Website](https://tailadmin.com/)
-### [🚀 PRO Demo](https://nextjs-demo.tailadmin.com/)
-### [🚀 FREE Demo](https://nextjs-free-demo.tailadmin.com/)
+   - Duplicate the `.env.example` file in the root of your project.
+   - Rename the duplicated file to `.env`.
 
-### TailAdmin Next.js PRO vs TailAdmin Next.js FREE Comparison 📊
+2. **Add Your Values:**
 
-#### [TailAdmin Next.js PRO](https://nextjs-demo.tailadmin.com/)
-- 4 Unique Dashboards: Analytics, Ecommerce, Marketing, and CRM (More will be added)
-- 120+ Dashboard UI Components
-- 200+ Total UI Elements
-- 45+ HTML Files
-- All Essential Elements and Files
-- Full Figma Design Source - As Shown on Demo
-___
+   - Open the newly created `.env` file in a text editor.
+   - Fill in the required values for each environment variable based on your specific setup.
 
-#### [TailAdmin Next.js FREE](https://free-nextjs-demo.tailadmin.com/)
-- 1 Unique Dashboard
-- 30+ Dashboard UI Components
-- 50+ Total UI Elements 
-- 10+ HTML Files
-- TypeScript Support
-- Basic UI Kit Elements and Files
-- Figma Design Source - Free Sample
-___
+   ```dotenv
+   # Example .env file
 
-### [⬇️ Download Now](https://tailadmin.com/download)
+   # Replace the placeholder values with your actual configuration
+   NEXT_PUBLIC_INFURA_API_KEY="{INFURA_API_KEY}"
+   NEXT_PUBLIC_MAINNET_SUBGRAPH_URL=
+   NEXT_PUBLIC_MAINNET_ERC20_HODL_SUBGRAPH_URL=
+   NEXT_PUBLIC_SEPOLIA_SUBGRAPH_URL=
+   NEXT_PUBLIC_SEPOLIA_ERC20_HODL_SUBGRAPH_URL=
+   NEXT_PUBLIC_POLYGON_SUBGRAPH_URL=
+   NEXT_PUBLIC_POLYGON_ERC20_HODL_SUBGRAPH_URL=
+   NEXT_PUBLIC_AMOY_SUBGRAPH_URL=
+   NEXT_PUBLIC_AMOY_ERC20_HODL_SUBGRAPH_URL=
+   NEXT_PUBLIC_BINANCE_SUBGRAPH_URL=
+   NEXT_PUBLIC_BINANCE_ERC20_HODL_SUBGRAPH_URL=
+   NEXT_PUBLIC_BINANCE_TESTNET_SUBGRAPH_URL=
+   NEXT_PUBLIC_BINANCE_TESTNET_ERC20_HODL_SUBGRAPH_URL=
+   NEXT_PUBLIC_BASE_SUBGRAPH_URL=
+   NEXT_PUBLIC_BASE_ERC20_HODL_SUBGRAPH_URL=
+   NEXT_PUBLIC_BASE_TESTNET_SUBGRAPH_URL=
+   NEXT_PUBLIC_BASE_TESTNET_ERC20_HODL_SUBGRAPH_URL=
+   NEXT_PUBLIC_CONTRACT_ADDRESS=
+   NEXT_PUBLIC_ERC20_HODL_CONTRACT_ADDRESS=
+   ...
+   Now run the development server:
+   ```
 
-### [⚡ Get PRO Version](https://tailadmin.com/pricing)
-
-### [📄 Documentation/Installation](https://tailadmin.com/docs)
-
-### [🖌️ TailAdmin Figma Free Sample](https://www.figma.com/community/file/1214477970819985778)
-
-### [👉 TailAdmin HTML Version](https://github.com/TailAdmin/tailadmin-free-tailwind-dashboard-template)
-
-
-## Installation
-Here are the steps you need to follow to install the dependencies.
-
-1. Download and extract the template from Next.js Templates.
-
-2. After that **cd** into the template directory then run this command to install all the dependencies
-
-```
-npm install
-```
-or
-
-```
-yarn install
-```
-
-3. Now run this command to start the developement server
-
-```
+```bash
 npm run dev
-```
-
-or 
-
-```
+# or
 yarn dev
 ```
 
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## Free Admin Dashboard Template for Next.js Built-with Tailwind CSS, React 18 and TypeScript
-TailAdmin Next.js is a free dashboard template, which uses Tailwind CSS, is a great starting point for dashboard UI. This template uses the Next.js JavaScript framework and the easy-to-use Tailwind CSS framework. The Tailwind CSS and Next.js Dashboard Template comes with ready-made components like navigation menus, charts, tables, and forms. These components can be easily adjusted and added to any Next.js web application.
+You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
 
-TailAdmin for Next.js provides all essential Next.js + Tailwind CSS UI components that can be copied and pasted directly into your dashboard projects. The range of components includes charts, graphs, navbars, tabs, buttons, cards, tables, profiles, forms, modals, app pages, calendars, web app example templates, and more, all coded for Next.js React and styled using Tailwind CSS.
+[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
 
-If you're on the hunt for a top-quality Next.js-Tailwind Dashboard, Admin Panel Template, or UI Kit, TailAdmin is the perfect choice for you!
+The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
-### 📄 License
-TailAdmin Next.js Free is 100% free and open-source; feel free to use it with your personal and commercial projects.
+## Learn More
 
-### 💜 Support
-If you like the template, please star this repository to inspire the team to create more stuff like this and reach more users like you!
+To learn more about Next.js, take a look at the following resources:
 
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-## Update Logs
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-### Version 1.3.1 - [Feb 12, 2024]
+## Deploy on Vercel
 
-#### Issues
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-- **Issues 02:** Fix Misspelling issue [Default Layout/Layouts].
-
-#### Enhancements
-- **Enhancement 01:** Update style.css
-
-### Version 1.3.0 - [Feb 05, 2024]
-
-#### Enhancements
-
-- **Enhancement 01:** Update Next.js into version 14
-- **Enhancement 02:** Integrate flatpickr in [Date Picker/Form Elements]
-- **Enhancement 03:** Change color after select an option [Select Element/Form Elements].
-- **Enhancement 04:** Make it functional [Multiselect Dropdown/Form Elements].
-- **Enhancement 05:** Make best value editable [Pricing Table One/Pricing Table].
-- **Enhancement 06:** Add Default Layout Component and make App/Layout more clean and use it in every pages.
-
-### Version 0.1.0 - Initial Release - [Aug 3, 2023]
-
-- Initial release of TailAdmin Next.
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.

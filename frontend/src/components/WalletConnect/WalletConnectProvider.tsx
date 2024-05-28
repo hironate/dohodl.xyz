@@ -8,12 +8,9 @@ import {
   MAINNET_TRANSPORTS,
   TESTNET_CHAINS,
   TESTNET_TRANSPORTS,
+  WALLETCONNECT_PROJECT_ID,
 } from "@/utils/constant";
 import { NetworkMode } from "@/types/web3";
-
-const projectId = process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID;
-
-if (!projectId) throw new Error("Project ID is not defined");
 
 const metadata = {
   name: "dohodl",
@@ -31,7 +28,7 @@ const WalletConnectProvider = ({
   children: React.ReactNode;
 }) => {
   const wagmiConfig = defaultWagmiConfig({
-    projectId,
+    projectId: WALLETCONNECT_PROJECT_ID,
     chains: networkMode === "mainnet" ? MAINNET_CHAINS : TESTNET_CHAINS,
     transports:
       networkMode === "mainnet" ? MAINNET_TRANSPORTS : TESTNET_TRANSPORTS,
@@ -44,7 +41,7 @@ const WalletConnectProvider = ({
 
   createWeb3Modal({
     wagmiConfig,
-    projectId,
+    projectId: WALLETCONNECT_PROJECT_ID,
     metadata,
     allWallets: "SHOW",
   });
