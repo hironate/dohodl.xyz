@@ -1,0 +1,51 @@
+type Deposit @entity {
+  id: ID!
+  unlockTime: BigInt! # uint256
+  lockedTime: BigInt! # uint256
+  owner: Bytes! # address
+  tokenAddress: Bytes # address
+  amount: BigInt! # uint256
+  withdrawn: Boolean! # bool
+  transactionHash: Bytes # address
+}
+
+type Withdrawal @entity {
+  id: ID!
+  lockedTime: BigInt! # uint256
+  unlockTime: BigInt! # uint256
+  unlockedAt: BigInt! # uint256
+  owner: Bytes! # address
+  tokenAddress: Bytes # address
+  amount: BigInt! # uint256
+  transactionHash: Bytes # address
+}
+
+enum ActivityType {
+  Deposit
+  Withdraw
+}
+
+type Activity @entity {
+  id: ID!
+  activityType: ActivityType!
+  depositId: String! # string
+  timestamp: BigInt! # uint256
+  user: Bytes! # address
+  amount: BigInt! # uint256
+  tokenAddress: Bytes # address
+  transactionHash: Bytes # address
+}
+
+type Stat @entity {
+  id: String!
+  totalLocked: BigInt! # uint256
+  activeLocked: BigInt! # uint256
+  totalWithdrawn: BigInt! # uint256
+}
+
+type UserStat @entity {
+  id: ID!
+  totalLocked: BigInt! # uint256
+  activeLocked: BigInt! # uint256
+  totalWithdrawn: BigInt! # uint256
+}

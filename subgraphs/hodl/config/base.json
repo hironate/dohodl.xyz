@@ -1,0 +1,7 @@
+{
+  "network": "base",
+  "hodlAddress": "0x3E7824b8ec5F60B8C18494617a3AAa518DAd2F25",
+  "hodl-start-block": 13665613,
+  "erc20HodlAddress": "0x4b75f6eC17A019fC61B8f442243B665fFC8bC233",
+  "erc-20-hodl-start-block": 13666128
+}
