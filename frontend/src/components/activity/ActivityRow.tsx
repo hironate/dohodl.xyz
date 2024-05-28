@@ -77,7 +77,7 @@ const ActivityRow = ({
         }`}
         key={index}
       >
-        {index && (
+        {index !== undefined && (
           <div className="flex items-center gap-3 p-2.5 xl:p-5">
             <p className="text-black dark:text-white ">{index + 1}</p>
           </div>

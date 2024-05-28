@@ -31,6 +31,7 @@ const UsersTokenChart = ({
 
   useEffect(() => {
     async function formatActivity() {
+      if (!tokensData?.length) return;
       const { totalTokenValuesLocked, totalTokensLocked } =
         await formatTokenDepositsToStats(tokensData, config);
 
