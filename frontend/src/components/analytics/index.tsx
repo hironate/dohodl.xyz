@@ -2,7 +2,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import USDLineChart from "../Charts/USDLineChart";
 import useLocks from "@/hooks/useLocks";
-import { useAccount } from "wagmi";
+import { useAccount, useConfig } from "wagmi";
 import CardDataStats from "../CardDataStats";
 import {
   AccountBalanceWallet,
@@ -23,14 +23,24 @@ import { formatEther } from "ethers";
 import UsersTokenChart from "../Charts/UserTokenChart";
 import { Stats } from "@/types/locks";
 import { getDefaultChainID } from "@/utils/chains";
+import { formatTokenDepositsToStatsByChainName } from "@/utils/locks";
+import useNetworkMode from "@/hooks/useNetworkMode";
 
 const Analytics = () => {
   const [chainsLockedValueInUsd, setChainsLockedValueInUsd] = useState<
     { chainName: string; valueLockedInUsd: string | number }[]
   >([]);
-  const { statsDataByChainName, activityDataByChainName, tokens } = useLocks();
+  const {
+    statsDataByChainName,
+    activityDataByChainName,
+    tokens,
+    tokensDepositsByChainName,
+  } = useLocks();
   const { chartDataWithChainName } = useCoinPrices();
   const { chain } = useAccount();
+  const config = useConfig();
+  const [networkMode] = useNetworkMode();
+  const [tokensData, setTokensData] = useState<any>({});
 
   const { activeLockedAmount, totalLockedAmount, totalWithdrawnAmount } =
     useMemo(() => {
@@ -56,6 +66,21 @@ const Analytics = () => {
       }
       return statsOfAllChain;
     }, [chartDataWithChainName, statsDataByChainName]);
+
+  useEffect(() => {
+    async function formatTokensDeposits() {
+      if (!tokensDepositsByChainName) return;
+      const formatedDataByChainName =
+        await formatTokenDepositsToStatsByChainName(
+          tokensDepositsByChainName,
+          config,
+          networkMode === "testnet",
+        );
+
+      setTokensData(formatedDataByChainName);
+    }
+    formatTokensDeposits();
+  }, [config, networkMode, tokensDepositsByChainName]);
 
   useEffect(() => {
     async function getData() {
@@ -127,7 +152,7 @@ const Analytics = () => {
             </div>
           )}
           <div className="flex w-full flex-col justify-center md:-mt-4 md:ml-3 2xl:m-0">
-            <UsersTokenChart tokensData={tokens} isForCard />
+            <UsersTokenChart tokensData={tokensData} isForCard isFormated />
             {!!tokens?.length && (
               <div className="w-full text-center text-base font-semibold text-primary-neon ">
                 Locked tokens
@@ -137,9 +162,7 @@ const Analytics = () => {
         </div>
       </div>
 
-      <div className="mt-4 md:mt-6 2xl:mt-7.5">
-        <ActivityTable activities={activityDataByChainName} />
-      </div>
+      <ActivityTable activities={activityDataByChainName} />
     </div>
   );
 };

@@ -8,9 +8,15 @@ import {
 import { useEffect, useMemo, useState } from "react";
 import { useConfig } from "wagmi";
 import LocksRow from "./LocksRow";
+import PopOver from "../PopOver";
+import { FilterAltTwoTone } from "@mui/icons-material";
+import { COINGECKO_COIN_ID_TO_CHAIN_NAME } from "@/utils/constant";
+import usePagination from "@/hooks/usePagination";
+import { Pagination } from "@mui/material";
 
-const Filters: ["All", "Unlocked", "Withdrawn"] = [
+const Filters: ["All", "Locked", "Unlocked", "Withdrawn"] = [
   "All",
+  "Locked",
   "Unlocked",
   "Withdrawn",
 ];
@@ -18,35 +24,53 @@ const Filters: ["All", "Unlocked", "Withdrawn"] = [
 const MyLocks = ({
   className,
   deposits,
+  onWithdraw,
 }: {
   className?: string;
   deposits: DataByChainName;
+  onWithdraw?: () => void;
 }) => {
   const [formatedLocks, setFormatedLocks] = useState<any[]>([]);
   const [isFormatingLocks, setIsFormatingLocks] = useState<boolean>(false);
   const [networkMode] = useNetworkMode();
 
-  const [filterBy, setFilterBy] = useState<"All" | "Unlocked" | "Withdrawn">(
-    "All",
-  );
+  const [filterBy, setFilterBy] = useState<
+    "All" | "Locked" | "Unlocked" | "Withdrawn"
+  >("All");
+  const [selectedChain, setSelectedChain] = useState("All");
+
+  const getCurrentTime = () => new Date().getTime();
+
+  const selectedChainLocks = useMemo(() => {
+    return selectedChain === "All"
+      ? formatedLocks
+      : formatedLocks.filter((lock) => lock.chainName === selectedChain);
+  }, [selectedChain, formatedLocks]);
 
   const filteredLocks = useMemo(() => {
-    switch (filterBy) {
-      case "All":
-        return formatedLocks;
-      case "Unlocked":
-        return formatedLocks.filter(
-          (lock) =>
-            !lock?.withdrawn &&
-            new Date().getTime() > Number(lock?.unlockTime) * 1000,
-        );
-      case "Withdrawn":
-        return formatedLocks.filter((lock) => lock?.withdrawn);
+    if (filterBy === "All") return selectedChainLocks;
 
-      default:
-        return formatedLocks;
-    }
-  }, [filterBy, formatedLocks]);
+    const currentTime = getCurrentTime();
+
+    return selectedChainLocks.filter((lock) => {
+      const unlockTime = Number(lock?.unlockTime) * 1000;
+      switch (filterBy) {
+        case "Locked":
+          return !lock.withdrawn && currentTime < unlockTime;
+        case "Unlocked":
+          return !lock.withdrawn && currentTime > unlockTime;
+        case "Withdrawn":
+          return lock.withdrawn;
+        default:
+          return true;
+      }
+    });
+  }, [filterBy, selectedChainLocks]);
+
+  const { currentPage, currentPageData, setPage, totalPages } = usePagination(
+    filteredLocks,
+    5,
+  );
 
   const config = useConfig();
 
@@ -97,9 +121,21 @@ const MyLocks = ({
             </h5>
           </div>
           <div className="p-2.5  xl:p-5">
-            <h5 className="text-sm font-medium uppercase lg:text-base">
-              Chain
-            </h5>
+            <div className="flex  items-center justify-start gap-2">
+              <h5 className="text-sm font-medium uppercase lg:text-base">
+                Chain
+              </h5>
+              <PopOver
+                items={[
+                  "All",
+                  ...Object.values(COINGECKO_COIN_ID_TO_CHAIN_NAME),
+                ]}
+                onItemClick={(chain) => setSelectedChain(chain)}
+                selectedItem={selectedChain}
+              >
+                <FilterAltTwoTone className="mui-icon  text-primary-neon" />
+              </PopOver>
+            </div>
           </div>
           <div className="p-2.5  xl:p-5">
             <h5 className="text-sm font-medium uppercase lg:text-base">
@@ -131,17 +167,13 @@ const MyLocks = ({
           </div>
         </div>
 
-        <div className="no-scrollbar relative h-full max-h-[300px] w-full min-w-fit overflow-y-auto shadow-inner lg:w-full">
+        <div className="no-scrollbar relative h-full w-full min-w-fit shadow-inner lg:w-full">
           {!isFormatingLocks ? (
-            !!filteredLocks.length ? (
-              filteredLocks.map((lock: any, index: number) => {
+            !!currentPageData.length ? (
+              currentPageData.map((lock: any, index: number) => {
                 return (
                   <div
-                    className={`grid grid-cols-8  ${
-                      index === filteredLocks.length - 1
-                        ? ""
-                        : "border-b border-stroke dark:border-strokedark"
-                    }`}
+                    className="grid grid-cols-8   border-b border-stroke dark:border-strokedark"
                     key={index}
                   >
                     <LocksRow lock={lock} index={index} />
@@ -163,6 +195,17 @@ const MyLocks = ({
               </div>
             </div>
           )}
+        </div>
+        <div className="flex w-full justify-end p-3">
+          <Pagination
+            page={currentPage}
+            shape="rounded"
+            onChange={(event, page) => setPage(page)}
+            count={totalPages}
+            className="text-primary "
+            color="primary"
+            size="medium"
+          />
         </div>
       </div>
     </div>

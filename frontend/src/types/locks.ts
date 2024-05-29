@@ -24,3 +24,16 @@ export type Stats = {
   totalLockedAmount: number;
   totalWithdrawnAmount: number;
 };
+
+export type ActivityFilters = {
+  chain:
+    | "All"
+    | "Ethereum"
+    | "Polygon"
+    | "Base"
+    | "BSC"
+    | "Sepolia"
+    | "Polygon Amoy"
+    | "Base Sepolia";
+  type: "All" | "Withdraw" | "Deposit";
+};

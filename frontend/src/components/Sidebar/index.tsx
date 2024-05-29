@@ -4,14 +4,13 @@ import React, { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import SidebarLinkGroup from "./SidebarLinkGroup";
 import {
   AnalyticsTwoTone,
   GridViewTwoTone,
   HttpsTwoTone,
-  LoyaltyTwoTone,
   RocketLaunchTwoTone,
 } from "@mui/icons-material";
+import { useAccount } from "wagmi";
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -20,6 +19,7 @@ interface SidebarProps {
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
   const pathname = usePathname();
+  const { isConnected } = useAccount();
 
   const trigger = useRef<any>(null);
   const sidebar = useRef<any>(null);
@@ -118,6 +118,20 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
             </h3>
 
             <ul className="mb-6 flex flex-col gap-1.5">
+              {isConnected && (
+                <li>
+                  <Link
+                    href="/dashboard"
+                    className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                      pathname.includes("dashboard") &&
+                      "bg-graydark dark:bg-meta-4"
+                    }`}
+                  >
+                    <GridViewTwoTone /> Dashboard
+                  </Link>
+                </li>
+              )}
+
               <li>
                 <Link
                   href="/"
@@ -138,18 +152,6 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   }`}
                 >
                   <HttpsTwoTone /> Locks
-                </Link>
-              </li>
-
-              <li>
-                <Link
-                  href="/dashboard"
-                  className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                    pathname.includes("dashboard") &&
-                    "bg-graydark dark:bg-meta-4"
-                  }`}
-                >
-                  <GridViewTwoTone /> Dashboard
                 </Link>
               </li>
 

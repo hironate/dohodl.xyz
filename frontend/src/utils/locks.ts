@@ -21,6 +21,7 @@ import { formatAmount } from "./ethers";
 
 export enum STATUS_FILTERS {
   ALL = "All",
+  LOCKED = "Locked",
   UNLOCKED = "Unlocked",
   WITHDRAWN = "Withdrawn",
 }
@@ -37,6 +38,7 @@ export const formatLocksDataToStats = (locksData: any): LockDataStats => {
 export const formatTokenDepositsToStats = async (
   deposits: any,
   config: Config,
+  chainId?: number,
 ) => {
   const tokensDataByTokenAddress = deposits.reduce(
     (acc: { [tokenAddress: string]: any[] }, lockData: any) => {
@@ -59,7 +61,7 @@ export const formatTokenDepositsToStats = async (
   } = {};
 
   const fetchTokenData = async (tokenAddress: string) => {
-    const contract = TokenContract(tokenAddress, config);
+    const contract = TokenContract(tokenAddress, config, chainId);
     const [symbol, decimals] = await Promise.all([
       contract.getSymbol(),
       contract.getDecimal(),
@@ -87,6 +89,35 @@ export const formatTokenDepositsToStats = async (
     totalTokenValuesLocked: sortedValuesByLockAmount,
     totalTokensLocked: Object.keys(tokensDataByTokenAddress).length,
   };
+};
+
+export const formatTokenDepositsToStatsByChainName = async (
+  tokensData: DataByChainName,
+  config: Config,
+  isTestnet: boolean,
+) => {
+  const totalTokenValuesLocked: {
+    symbol: string;
+    amount: number;
+    decimals: number;
+  }[] = [];
+  let totalTokensLocked: number = 0;
+
+  const promises = Object.keys(tokensData).map(async (chainName) => {
+    const formattedTokenDeposits = await formatTokenDepositsToStats(
+      tokensData[chainName],
+      config,
+      getChainIdByChainName(chainName, isTestnet),
+    );
+    totalTokenValuesLocked.push(
+      ...formattedTokenDeposits.totalTokenValuesLocked,
+    );
+    totalTokensLocked += formattedTokenDeposits.totalTokensLocked;
+  });
+
+  await Promise.all(promises);
+
+  return { totalTokenValuesLocked, totalTokensLocked };
 };
 
 export const getDataFromAllChains = async ({
@@ -197,9 +228,13 @@ export const combineDataFromChainName = (data: DataByChainName) => {
   const combinedData: any[] = [];
 
   Object.keys(data).map((chainName) => {
-    data[chainName].map((activityData: any) => {
-      combinedData.push({ ...activityData, chainName });
-    });
+    if (Array.isArray(data[chainName]))
+      data[chainName].map((activityData: any) => {
+        combinedData.push({ ...activityData, chainName });
+      });
+    else {
+      combinedData.push(data[chainName]);
+    }
   });
 
   return combinedData;

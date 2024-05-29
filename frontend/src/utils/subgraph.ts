@@ -211,6 +211,7 @@ export const QUERY_KEYS = {
   ALL_LOCKS: "all-locks",
   ALL_CHAIN_LOCKS: "all-chain-locks",
   ALL_CHAIN_USER_LOCKS: "all-chain-user-locks",
+  ALL_CHAIN_TOKENS: "all-chain-tokens",
   STATS: "stats",
   STATS_OF_ALL_CHAIN: "all-chain-stats",
   USER_STATS: "user-stats",

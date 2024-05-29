@@ -92,7 +92,14 @@ export const areaChartOptions: ApexOptions = {
   },
 };
 
-export const tickColors = ["#6577F3", "#3C50E0", "#0FADCF", "#8FD0EF"];
+export const tickColors = [
+  "#6577F3",
+  "#3C50E0",
+  "#0FADCF",
+  "#0096c7",
+  "#3a86ff",
+  "#8FD0EF",
+];
 
 export const ResponsivPieChartOpetionForCard: ApexOptions = {
   responsive: [
