@@ -78,6 +78,25 @@ const useLocks = () => {
     },
   });
 
+  const { data: tokensDepositsByChainName } = useTanstackQuery({
+    queryKey: [QUERY_KEYS.ALL_CHAIN_TOKENS, networkMode],
+    queryFn: async () => {
+      const data = await getDataFromAllChains({
+        query: TokenQuery,
+        filterBy: "deposits",
+        networkMode,
+      });
+
+      return data.reduce(
+        (acc: { [chainName: string]: any }, { chainName, lockedData }) => {
+          acc[chainName] = lockedData;
+          return acc;
+        },
+        {},
+      );
+    },
+  });
+
   const {
     loading: fetchingAllLocks,
     data: allLocksData,
@@ -139,6 +158,7 @@ const useLocks = () => {
       tokens,
       refetchStats,
       refetchStatsDataByChainName,
+      tokensDepositsByChainName,
     }),
     [
       activities,
@@ -149,6 +169,7 @@ const useLocks = () => {
       tokens,
       refetchStats,
       refetchStatsDataByChainName,
+      tokensDepositsByChainName,
     ],
   );
 };

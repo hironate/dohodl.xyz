@@ -87,12 +87,7 @@ const Dashboard: React.FC = () => {
             {tokens && <UsersTokenChart tokensData={tokens} />}
           </div>
 
-          <div className="col-span-12 mt-4 rounded-sm border border-stroke bg-white px-5 pb-5 pt-7.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 md:mt-6 2xl:mt-7.5 ">
-            <ActivityTable
-              activities={activityDataByChainName}
-              isUserActivity
-            />
-          </div>
+          <ActivityTable activities={activityDataByChainName} isUserActivity />
         </>
       ) : (
         <div className="mt-4 flex h-full w-full items-center justify-center md:mt-6 2xl:mt-7.5 ">

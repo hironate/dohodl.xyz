@@ -2,24 +2,32 @@ import { formatDateUsingDuration } from "@/utils/Date";
 import { toShortAddress } from "@/utils/String";
 import { formatNumber } from "@/utils/locks";
 import React, { useState } from "react";
-import LockInfoModal from "../Modal/LockInfoModal";
 import {
   CHAIN_ID_TO_EXPLORER_BASE_URI,
+  COINGECKO_COIN_ID_TO_CHAIN_NAME,
   getChainIdByChainName,
 } from "@/utils/constant";
 import useNetworkMode from "@/hooks/useNetworkMode";
 import ChainLogo from "../ChainTracker/ChainLogo";
+import { FilterAltTwoTone } from "@mui/icons-material";
+import PopOver from "../PopOver";
 
 const ActivityRow = ({
   activity,
   index,
   isUserActivity,
+  setFilters,
 }: {
   activity?: any;
   index?: number;
   isUserActivity: boolean;
+  setFilters?: (prevData: any) => void;
 }) => {
   const [networkMode] = useNetworkMode();
+  const [currentFilters, setCurrentFilters] = useState({
+    chain: "All",
+    type: "All",
+  });
 
   if (!activity)
     return (
@@ -32,10 +40,23 @@ const ActivityRow = ({
               Sr No.
             </h5>
           </div>
-          <div className=" p-2.5  sm:block xl:p-5">
+          <div className=" flex  cursor-pointer flex-row items-center gap-2 p-2.5 sm:flex xl:p-5">
             <h5 className=" text-xs font-medium uppercase md:text-base">
               Chain
             </h5>
+            <PopOver
+              items={["All", ...Object.values(COINGECKO_COIN_ID_TO_CHAIN_NAME)]}
+              onItemClick={(item) => {
+                setFilters?.((prev: any) => ({ ...prev, chain: item }));
+                setCurrentFilters?.((prev: any) => ({ ...prev, chain: item }));
+              }}
+              selectedItem={currentFilters.chain}
+            >
+              <FilterAltTwoTone
+                className="text-xs text-primary"
+                fontSize="small"
+              />
+            </PopOver>
           </div>
           <div className="p-2.5  xl:p-5">
             <h5 className="text-xs font-medium uppercase md:text-base">
@@ -50,8 +71,23 @@ const ActivityRow = ({
           <div className="p-2.5  xl:p-5">
             <h5 className="text-xs font-medium uppercase md:text-base">At</h5>
           </div>
-          <div className=" p-2.5  sm:block xl:p-5">
-            <h5 className="text-xs font-medium uppercase md:text-base">Type</h5>
+          <div className=" flex  cursor-pointer flex-row items-center gap-2 p-2.5 sm:flex xl:p-5">
+            <h5 className=" text-xs font-medium uppercase md:text-base">
+              Type
+            </h5>
+            <PopOver
+              items={["All", "Withdraw", "Deposit"]}
+              onItemClick={(item) => {
+                setFilters?.((prev: any) => ({ ...prev, type: item }));
+                setCurrentFilters((prev: any) => ({ ...prev, type: item }));
+              }}
+              selectedItem={currentFilters.type}
+            >
+              <FilterAltTwoTone
+                className="text-xs text-primary "
+                fontSize="small"
+              />
+            </PopOver>
           </div>
           {!isUserActivity && (
             <div className=" p-2.5  sm:block xl:p-5">
@@ -70,11 +106,7 @@ const ActivityRow = ({
   return (
     <div className="min-w-[500px] text-xs sm:text-sm md:text-base">
       <div
-        className={`grid  ${isUserActivity ? "grid-cols-7" : "grid-cols-8"} ${
-          index === activity.length - 1
-            ? ""
-            : "border-b border-stroke dark:border-strokedark"
-        }`}
+        className={`grid  ${isUserActivity ? "grid-cols-7" : "grid-cols-8"} ${"border-b border-stroke dark:border-strokedark"}`}
         key={index}
       >
         {index !== undefined && (

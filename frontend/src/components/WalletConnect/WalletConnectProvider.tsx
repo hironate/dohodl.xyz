@@ -30,8 +30,6 @@ const WalletConnectProvider = ({
   const wagmiConfig = defaultWagmiConfig({
     projectId: WALLETCONNECT_PROJECT_ID,
     chains: networkMode === "mainnet" ? MAINNET_CHAINS : TESTNET_CHAINS,
-    transports:
-      networkMode === "mainnet" ? MAINNET_TRANSPORTS : TESTNET_TRANSPORTS,
     metadata,
     ssr: false,
     storage: createStorage({

@@ -12,6 +12,7 @@ import {
   getChainIdByChainName,
 } from "@/utils/constant";
 import ChainLogo from "../ChainTracker/ChainLogo";
+import useUserLocks from "@/hooks/useUserLocks";
 
 const LockInfoModal = ({
   isOpen = false,
@@ -23,8 +24,12 @@ const LockInfoModal = ({
   onClose: () => void;
 }) => {
   const [modalIsOpen, setIsOpen] = useState(false);
+  const [isProccessingWithdraw, setWithdrawProcess] = useState(false);
+
   const [colorMode] = useColorMode();
   const [networkMode] = useNetworkMode();
+
+  const { refetchAllLocks } = useUserLocks();
 
   const chainId = getChainIdByChainName(
     lock?.chainName,
@@ -73,9 +78,16 @@ const LockInfoModal = ({
     !lock?.withdrawn && new Date().getTime() > unlockTime;
 
   const onWithdraw = async () => {
+    setWithdrawProcess(true);
     const isToken = !!lock.tokenAddress;
-    await Withdraw(depositId, config, isToken);
+    try {
+      await Withdraw(depositId, config, isToken);
+      await refetchAllLocks();
+    } catch (error) {
+      console.log(error);
+    }
     closeModal();
+    setWithdrawProcess(false);
   };
 
   return (
@@ -156,6 +168,7 @@ const LockInfoModal = ({
                         "_blank",
                       );
                 }}
+                isLoading={isProccessingWithdraw}
                 chainId={isAvailableForWithrawal ? chainId : undefined}
               />
             </div>

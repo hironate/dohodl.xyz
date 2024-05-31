@@ -16,9 +16,11 @@ interface ChartState {
 const UsersTokenChart = ({
   tokensData,
   isForCard = false,
+  isFormated = false,
 }: {
   tokensData: any;
   isForCard?: boolean;
+  isFormated?: boolean;
 }) => {
   const [state, setState] = useState<ChartState>({
     series: [],
@@ -30,10 +32,20 @@ const UsersTokenChart = ({
   const config = useConfig();
 
   useEffect(() => {
-    async function formatActivity() {
-      if (!tokensData?.length) return;
-      const { totalTokenValuesLocked, totalTokensLocked } =
-        await formatTokenDepositsToStats(tokensData, config);
+    async function formatTokenDeposits() {
+      if (!tokensData?.length && !isFormated) return;
+      let totalTokenValuesLocked: {
+        symbol: string;
+        amount: number;
+        decimals: number;
+      }[];
+      let totalTokensLocked: number;
+      if (isFormated) {
+        ({ totalTokenValuesLocked, totalTokensLocked } = tokensData);
+      } else {
+        ({ totalTokenValuesLocked, totalTokensLocked } =
+          await formatTokenDepositsToStats(tokensData, config));
+      }
 
       setTotalTokensLocked(totalTokensLocked);
 
@@ -41,7 +53,7 @@ const UsersTokenChart = ({
       let otherAmount = 0;
 
       totalTokenValuesLocked.forEach((data, index) => {
-        if (index < 3) {
+        if (index < 5) {
           formatedChartDataValues.push(data);
         } else {
           otherAmount += data.amount;
@@ -63,12 +75,12 @@ const UsersTokenChart = ({
       setTotalValueLocked(totalTokenValueLocked);
       setState({ labels, series });
     }
-    formatActivity();
-  }, [config, tokensData]);
+    formatTokenDeposits();
+  }, [config, isFormated, tokensData]);
 
   const outterClassName = `w-full ${!isForCard ? "col-span-12 border border-stroke px-5 pb-5 pt-7.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:col-span-4 rounded-sm  bg-white" : "flex justify-center items-center"}`;
 
-  if (!tokensData?.length) {
+  if (!tokensData?.length && !isFormated) {
     return (
       <div className={outterClassName}>
         <div className="flex h-full w-full items-center justify-center gap-3 py-10">
@@ -124,7 +136,7 @@ const UsersTokenChart = ({
             {!!state.series.length &&
               state.labels?.map((label, index: number) => {
                 return (
-                  <div key={index} className="w-full px-8 sm:w-1/2">
+                  <div key={index} className="w-full  sm:w-1/2">
                     <div className="flex w-full items-center">
                       <span
                         className={`mr-2 block h-3 w-full max-w-3 rounded-full bg-[${tickColors[index]}]`}

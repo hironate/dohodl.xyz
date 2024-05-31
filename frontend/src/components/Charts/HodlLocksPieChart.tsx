@@ -84,17 +84,17 @@ const HodleLocksPieChart = ({
           </div>
         </div>
 
-        <div className="flex w-full flex-wrap items-center gap-y-3 pt-7.5 sm:p-0">
+        <div className="flex w-full flex-wrap items-center justify-center gap-y-3 pt-7.5 sm:p-0">
           {LocksData?.map((lockData: LockData, index: number) => {
             const colorHash = tickColors[index];
 
             return (
-              <div key={index} className="w-full px-8 sm:w-1/2">
-                <div className="flex w-full items-center">
+              <div key={index} className="w-full sm:w-1/2">
+                <div className="flex w-full items-center justify-evenly">
                   <span
                     className={`mr-2 block h-3 w-full max-w-3 rounded-full bg-[${colorHash}]`}
                   ></span>
-                  <p className="flex w-full justify-between text-sm font-medium text-black dark:text-white">
+                  <p className="flex w-full items-center justify-between text-sm font-medium text-black dark:text-white">
                     <span> {lockData.chainName} </span>
                     <span>
                       {" "}
