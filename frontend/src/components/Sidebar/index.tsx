@@ -19,7 +19,8 @@ interface SidebarProps {
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
   const pathname = usePathname();
-  const { isConnected } = useAccount();
+  const { isConnected, status } = useAccount();
+  console.log({ isConnected, status });
 
   const trigger = useRef<any>(null);
   const sidebar = useRef<any>(null);
@@ -118,7 +119,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
             </h3>
 
             <ul className="mb-6 flex flex-col gap-1.5">
-              {isConnected && (
+              {(status === "connecting" || isConnected) && (
                 <li>
                   <Link
                     href="/dashboard"
