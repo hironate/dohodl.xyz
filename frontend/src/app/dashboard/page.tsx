@@ -3,11 +3,7 @@ import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import React from "react";
 
 const DashboardPage = () => {
-  return (
-    <DefaultLayout>
-      <Dashboard />
-    </DefaultLayout>
-  );
+  return <Dashboard />;
 };
 
 export default DashboardPage;

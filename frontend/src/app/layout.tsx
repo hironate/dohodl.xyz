@@ -7,6 +7,7 @@ import React, { useEffect, useState } from "react";
 import Loader from "@/components/common/Loader";
 import WalletConnectProvider from "@/components/WalletConnect/WalletConnectProvider";
 import useNetworkMode from "@/hooks/useNetworkMode";
+import DefaultLayout from "@/components/Layouts/DefaultLayout";
 
 export default function RootLayout({
   children,
@@ -28,7 +29,7 @@ export default function RootLayout({
             <Loader />
           ) : (
             <WalletConnectProvider networkMode={networkMode}>
-              {children}
+              <DefaultLayout>{children}</DefaultLayout>
             </WalletConnectProvider>
           )}
         </div>

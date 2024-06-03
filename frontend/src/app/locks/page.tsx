@@ -6,11 +6,7 @@ import { DefaultMetadata } from "@/utils/constant";
 export const metadata = DefaultMetadata;
 
 const LocksPage = () => {
-  return (
-    <DefaultLayout>
-      <Locks />
-    </DefaultLayout>
-  );
+  return <Locks />;
 };
 
 export default LocksPage;

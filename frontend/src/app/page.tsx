@@ -9,9 +9,7 @@ export const metadata = DefaultMetadata;
 export default function Home() {
   return (
     <>
-      <DefaultLayout>
-        <Analytics />
-      </DefaultLayout>
+      <Analytics />
     </>
   );
 }
