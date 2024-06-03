@@ -32,9 +32,6 @@ const WalletConnectProvider = ({
     chains: networkMode === "mainnet" ? MAINNET_CHAINS : TESTNET_CHAINS,
     metadata,
     ssr: false,
-    storage: createStorage({
-      storage: cookieStorage,
-    }),
   });
 
   createWeb3Modal({
