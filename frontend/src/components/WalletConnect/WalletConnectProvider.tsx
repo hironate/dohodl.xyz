@@ -15,7 +15,7 @@ import { NetworkMode } from "@/types/web3";
 const metadata = {
   name: "dohodl",
   description: "",
-  url: "localhost:/3000",
+  url: "https://www.dohodl.xyz/",
   icons: ["https://avatars.githubusercontent.com/u/37784886"],
 };
 export const queryClient = new QueryClient();
