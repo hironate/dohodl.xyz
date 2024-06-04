@@ -16,7 +16,7 @@ const LocksRow = ({ lock, index }: { lock: any; index: number }) => {
       : "Loked";
 
   return (
-    <>
+    <div className="grid  grid-cols-8 rounded-sm border-b border-stroke dark:border-strokedark">
       <div className="flex items-center gap-3 p-2.5 xl:p-5">
         <p className="text-black dark:text-white ">{index + 1}</p>
       </div>
@@ -75,7 +75,7 @@ const LocksRow = ({ lock, index }: { lock: any; index: number }) => {
         lock={lock}
         onClose={() => setOpenModal(false)}
       />
-    </>
+    </div>
   );
 };
 

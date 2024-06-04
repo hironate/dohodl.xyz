@@ -66,13 +66,15 @@ const useToken = (tokenAddress: string) => {
     () => ({
       balance: userBalance || "0",
       formatedBalance:
-        Number(userBalance) && decimals
+        userBalance && decimals
           ? ethers.formatUnits(userBalance, Number(decimals))
           : "0",
       decimals: decimals || "0",
     }),
     [userBalance, decimals],
   );
+
+  console.log({ balance });
 
   const allowance = useMemo(
     () =>

@@ -8,7 +8,7 @@ const WalletConnect = () => {
 
   return (
     <div className="relative ">
-      {status === "connected" || isConnected ? (
+      {isConnected ? (
         <DropdownUser />
       ) : (
         <button

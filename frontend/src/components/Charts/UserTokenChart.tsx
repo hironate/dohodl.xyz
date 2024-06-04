@@ -33,7 +33,11 @@ const UsersTokenChart = ({
 
   useEffect(() => {
     async function formatTokenDeposits() {
-      if (!tokensData?.length && !isFormated) return;
+      if (
+        (!tokensData?.length && !isFormated) ||
+        (isFormated && !tokensData?.totalTokenValuesLocked?.length)
+      )
+        return;
       let totalTokenValuesLocked: {
         symbol: string;
         amount: number;
@@ -52,7 +56,7 @@ const UsersTokenChart = ({
       const formatedChartDataValues: { symbol: string; amount: number }[] = [];
       let otherAmount = 0;
 
-      totalTokenValuesLocked.forEach((data, index) => {
+      totalTokenValuesLocked?.forEach((data, index) => {
         if (index < 5) {
           formatedChartDataValues.push(data);
         } else {

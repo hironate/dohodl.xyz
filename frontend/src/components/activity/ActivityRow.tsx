@@ -10,7 +10,7 @@ import {
 import useNetworkMode from "@/hooks/useNetworkMode";
 import ChainLogo from "../ChainTracker/ChainLogo";
 import { FilterAltTwoTone } from "@mui/icons-material";
-import PopOver from "../PopOver";
+import PopOver from "../Dropdown/PopOver";
 
 const ActivityRow = ({
   activity,
@@ -31,7 +31,7 @@ const ActivityRow = ({
 
   if (!activity)
     return (
-      <div className="min-w-[500px] text-xs sm:text-sm md:text-base">
+      <div className="min-w-[550px] text-xs sm:text-sm md:text-base">
         <div
           className={`grid  rounded-sm bg-gray-2 dark:bg-meta-4 ${isUserActivity ? "grid-cols-7" : "grid-cols-8"}`}
         >
@@ -104,14 +104,14 @@ const ActivityRow = ({
     );
 
   return (
-    <div className="min-w-[500px] text-xs sm:text-sm md:text-base">
+    <div className="min-w-[550px] text-xs sm:text-sm md:text-base">
       <div
         className={`grid  ${isUserActivity ? "grid-cols-7" : "grid-cols-8"} ${"border-b border-stroke dark:border-strokedark"}`}
         key={index}
       >
         {index !== undefined && (
           <div className="flex items-center gap-3 p-2.5 xl:p-5">
-            <p className="text-black dark:text-white ">{index + 1}</p>
+            <p className="text-black dark:text-white ">{index}</p>
           </div>
         )}
 
@@ -164,7 +164,7 @@ const ActivityRow = ({
               ]
             }/tx/${activity.transactionHash}`}
             target="_blank"
-            className="flex w-1/2 justify-center rounded  p-3 py-2  font-medium text-primary-neon hover:bg-opacity-90 disabled:cursor-not-allowed"
+            className="ml-2 flex w-1/2 items-start  rounded p-3  py-2 font-medium text-primary-neon hover:bg-opacity-90 disabled:cursor-not-allowed sm:items-center sm:justify-center md:m-0"
           >
             View
           </a>

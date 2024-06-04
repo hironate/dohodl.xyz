@@ -8,7 +8,7 @@ import {
 import { useEffect, useMemo, useState } from "react";
 import { useConfig } from "wagmi";
 import LocksRow from "./LocksRow";
-import PopOver from "../PopOver";
+import PopOver from "../Dropdown/PopOver";
 import { FilterAltTwoTone } from "@mui/icons-material";
 import { COINGECKO_COIN_ID_TO_CHAIN_NAME } from "@/utils/constant";
 import usePagination from "@/hooks/usePagination";
@@ -94,9 +94,9 @@ const MyLocks = ({
 
   return (
     <div className="w-full rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
-      <h4 className="mb-6 flex justify-between text-xl font-semibold text-black dark:text-white">
+      <h4 className="mb-6 flex flex-col gap-2 text-xl font-semibold text-black dark:text-white xsm:flex-row xsm:justify-between xsm:gap-0">
         <span>My Locks</span>
-        <div className="flex w-full max-w-45 justify-end">
+        <div className="flex w-full max-w-45 xsm:justify-end">
           <div className="inline-flex items-center gap-1 rounded-md bg-whiter p-1.5 dark:bg-meta-4">
             {Filters.map((filter, index: number) => (
               <button
@@ -112,68 +112,68 @@ const MyLocks = ({
       </h4>
 
       <div className="no-scrollbar flex flex-col overflow-x-scroll text-start">
-        <div
-          className={`grid min-w-fit grid-cols-8 rounded-sm bg-gray-2 dark:bg-meta-4 md:w-auto`}
-        >
-          <div className="p-2.5  xl:p-5">
-            <h5 className="text-sm font-medium uppercase lg:text-base">
-              Sr No.
-            </h5>
-          </div>
-          <div className="p-2.5  xl:p-5">
-            <div className="flex  items-center justify-start gap-2">
+        <div className="min-w-[600px] text-xs sm:text-sm md:text-base">
+          <div className="grid  grid-cols-8 rounded-sm bg-gray-2 dark:bg-meta-4">
+            <div className="p-2.5  xl:p-5">
               <h5 className="text-sm font-medium uppercase lg:text-base">
-                Chain
+                Sr No.
               </h5>
-              <PopOver
-                items={[
-                  "All",
-                  ...Object.values(COINGECKO_COIN_ID_TO_CHAIN_NAME),
-                ]}
-                onItemClick={(chain) => setSelectedChain(chain)}
-                selectedItem={selectedChain}
-              >
-                <FilterAltTwoTone className="mui-icon  text-primary-neon" />
-              </PopOver>
             </div>
-          </div>
-          <div className="p-2.5  xl:p-5">
-            <h5 className="text-sm font-medium uppercase lg:text-base">
-              Currency
-            </h5>
-          </div>
-          <div className="p-2.5  xl:p-5">
-            <h5 className="text-sm font-medium uppercase lg:text-base">
-              Amount
-            </h5>
-          </div>
-          <div className="p-2.5  xl:p-5">
-            <h5 className="text-sm font-medium uppercase lg:text-base">
-              Locked At
-            </h5>
-          </div>
-          <div className="p-2.5  sm:block xl:p-5">
-            <h5 className="text-sm font-medium uppercase lg:text-base">
-              Unlock Time
-            </h5>
-          </div>
-          <div className="p-2.5  sm:block xl:p-5">
-            <h5 className="text-sm font-medium uppercase lg:text-base">
-              status
-            </h5>
-          </div>
-          <div className="p-2.5  sm:block xl:p-5">
-            <h5 className="text-sm font-medium uppercase lg:text-base"></h5>
+            <div className="p-2.5  xl:p-5">
+              <div className="flex  items-center justify-start gap-2">
+                <h5 className="text-sm font-medium uppercase lg:text-base">
+                  Chain
+                </h5>
+                <PopOver
+                  items={[
+                    "All",
+                    ...Object.values(COINGECKO_COIN_ID_TO_CHAIN_NAME),
+                  ]}
+                  onItemClick={(chain) => setSelectedChain(chain)}
+                  selectedItem={selectedChain}
+                >
+                  <FilterAltTwoTone className="mui-icon  text-primary-neon" />
+                </PopOver>
+              </div>
+            </div>
+            <div className="p-2.5  xl:p-5">
+              <h5 className="text-sm font-medium uppercase lg:text-base">
+                Currency
+              </h5>
+            </div>
+            <div className="p-2.5  xl:p-5">
+              <h5 className="text-sm font-medium uppercase lg:text-base">
+                Amount
+              </h5>
+            </div>
+            <div className="p-2.5  xl:p-5">
+              <h5 className="text-sm font-medium uppercase lg:text-base">
+                Locked At
+              </h5>
+            </div>
+            <div className="p-2.5  sm:block xl:p-5">
+              <h5 className="text-sm font-medium uppercase lg:text-base">
+                Unlock Time
+              </h5>
+            </div>
+            <div className="p-2.5  sm:block xl:p-5">
+              <h5 className="text-sm font-medium uppercase lg:text-base">
+                status
+              </h5>
+            </div>
+            <div className="p-2.5  sm:block xl:p-5">
+              <h5 className="text-sm font-medium uppercase lg:text-base"></h5>
+            </div>
           </div>
         </div>
 
-        <div className="no-scrollbar relative h-full w-full min-w-fit shadow-inner lg:w-full">
+        <div className="relative h-full w-full">
           {!isFormatingLocks ? (
             !!currentPageData.length ? (
               currentPageData.map((lock: any, index: number) => {
                 return (
                   <div
-                    className="grid grid-cols-8   border-b border-stroke dark:border-strokedark"
+                    className="min-w-[600px] text-xs sm:text-sm md:text-base"
                     key={index}
                   >
                     <LocksRow lock={lock} index={index} />
@@ -196,17 +196,17 @@ const MyLocks = ({
             </div>
           )}
         </div>
-        <div className="flex w-full justify-end p-3">
-          <Pagination
-            page={currentPage}
-            shape="rounded"
-            onChange={(event, page) => setPage(page)}
-            count={totalPages}
-            className="text-primary "
-            color="primary"
-            size="medium"
-          />
-        </div>
+      </div>
+      <div className="flex w-full justify-end p-3">
+        <Pagination
+          page={currentPage}
+          shape="rounded"
+          onChange={(event, page) => setPage(page)}
+          count={totalPages}
+          className="text-primary "
+          color="primary"
+          size="medium"
+        />
       </div>
     </div>
   );

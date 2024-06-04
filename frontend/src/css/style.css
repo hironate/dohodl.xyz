@@ -248,3 +248,22 @@ input[type="search"]::-webkit-search-cancel-button {
 [x-cloak] {
   display: none !important;
 }
+
+.lockValue-1 {
+  background-color: #6577f3;
+}
+.lockValue-2 {
+  background-color: #3c50e0;
+}
+.lockValue-3 {
+  background-color: #0fadcf;
+}
+.lockValue-4 {
+  background-color: #0096c7;
+}
+.lockValue-5 {
+  background-color: #3a86ff;
+}
+.lockValue-6 {
+  background-color: #8fd0ef;
+}
