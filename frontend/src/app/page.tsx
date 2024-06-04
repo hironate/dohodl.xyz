@@ -15,10 +15,21 @@ import { formatEther } from "ethers";
 import { Stats } from "@/types/locks";
 import { formatTokenDepositsToStatsByChainName } from "@/utils/locks";
 import useNetworkMode from "@/hooks/useNetworkMode";
-import HodleLocksPieChart from "@/components/Charts/HodlLocksPieChart";
-import USDLineChart from "@/components/Charts/USDLineChart";
 import CardDataStats from "@/components/CardDataStats";
-import UsersTokenChart from "@/components/Charts/UserTokenChart";
+import dynamic from "next/dynamic";
+const UsersTokenChart = dynamic(
+  () => import("@/components/Charts/UserTokenChart"),
+  { ssr: false },
+);
+const USDLineChart = dynamic(() => import("@/components/Charts/USDLineChart"), {
+  ssr: false,
+});
+const HodleLocksPieChart = dynamic(
+  () => import("@/components/Charts/HodlLocksPieChart"),
+  {
+    ssr: false,
+  },
+);
 import ActivityTable from "@/components/activity/HodleActivity";
 
 const AnalyticsPage = () => {

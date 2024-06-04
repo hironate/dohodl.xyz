@@ -11,9 +11,15 @@ import useCoinPrices from "@/hooks/useCoinPrices";
 import useUserLocks from "@/hooks/useUserLocks";
 import CardDataStats from "@/components/CardDataStats";
 import FirstUnlockCountDown from "@/components/FirstUnlockCountDown";
-import UsersTokenChart from "@/components/Charts/UserTokenChart";
-import USDLineChart from "@/components/Charts/USDLineChart";
 import ActivityTable from "@/components/activity/HodleActivity";
+import dynamic from "next/dynamic";
+const UsersTokenChart = dynamic(
+  () => import("@/components/Charts/UserTokenChart"),
+  { ssr: false },
+);
+const USDLineChart = dynamic(() => import("@/components/Charts/USDLineChart"), {
+  ssr: false,
+});
 
 const DashboardPage: React.FC = () => {
   const { chain, isConnected } = useAccount();

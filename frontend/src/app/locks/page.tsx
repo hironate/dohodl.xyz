@@ -9,7 +9,13 @@ import useCoinPrices from "@/hooks/useCoinPrices";
 import useUserLocks from "@/hooks/useUserLocks";
 import CreateHodl from "@/components/Hodl/CreateHodl";
 import CardDataStats from "@/components/CardDataStats";
-import HodleLocksPieChart from "@/components/Charts/HodlLocksPieChart";
+import dynamic from "next/dynamic";
+const HodleLocksPieChart = dynamic(
+  () => import("@/components/Charts/HodlLocksPieChart"),
+  {
+    ssr: false,
+  },
+);
 import MyLocks from "@/components/Locks/MyLocks";
 
 const LocksPage = () => {
