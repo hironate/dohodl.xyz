@@ -1,16 +1,14 @@
-import React from "react";
+"use client";
 import { WagmiProvider, createStorage, cookieStorage } from "wagmi";
 import { defaultWagmiConfig } from "@web3modal/wagmi/react/config";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { createWeb3Modal } from "@web3modal/wagmi/react";
 import {
   MAINNET_CHAINS,
-  MAINNET_TRANSPORTS,
   TESTNET_CHAINS,
-  TESTNET_TRANSPORTS,
   WALLETCONNECT_PROJECT_ID,
 } from "@/utils/constant";
-import { NetworkMode } from "@/types/web3";
+import useNetworkMode from "@/hooks/useNetworkMode";
 
 const metadata = {
   name: "dohodl",
@@ -21,17 +19,22 @@ const metadata = {
 export const queryClient = new QueryClient();
 
 const WalletConnectProvider = ({
-  networkMode,
   children,
+  initialState,
 }: {
-  networkMode: NetworkMode;
   children: React.ReactNode;
+  initialState?: any;
 }) => {
+  const [networkMode] = useNetworkMode();
+
   const wagmiConfig = defaultWagmiConfig({
     projectId: WALLETCONNECT_PROJECT_ID,
     chains: networkMode === "mainnet" ? MAINNET_CHAINS : TESTNET_CHAINS,
     metadata,
     ssr: false,
+    storage: createStorage({
+      storage: cookieStorage,
+    }),
   });
 
   createWeb3Modal({
@@ -42,7 +45,7 @@ const WalletConnectProvider = ({
   });
 
   return (
-    <WagmiProvider config={wagmiConfig}>
+    <WagmiProvider config={wagmiConfig} initialState={initialState}>
       <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
     </WagmiProvider>
   );
