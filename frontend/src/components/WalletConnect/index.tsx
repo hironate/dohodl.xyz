@@ -1,14 +1,19 @@
-import { useAccount, useConnect } from "wagmi";
+import { useAccount } from "wagmi";
 import { useWeb3Modal } from "@web3modal/wagmi/react";
 import DropdownUser from "../Header/DropdownUser";
+import { useEffect } from "react";
 
 const WalletConnect = () => {
-  const { isConnected, status } = useAccount();
+  const { isConnected } = useAccount();
   const { open } = useWeb3Modal();
+
+  useEffect(() => {
+    console.log("rendering wallet-connect button");
+  }, []);
 
   return (
     <div className="relative ">
-      {status === "connected" || isConnected ? (
+      {isConnected ? (
         <DropdownUser />
       ) : (
         <button
