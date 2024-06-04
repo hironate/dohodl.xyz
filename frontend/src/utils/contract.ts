@@ -82,17 +82,8 @@ export const getHodlContract = ({
     tokenAddress?: string;
   }) {
     if (isErc20)
-      await contract.write("deposit", [
-        duration,
-        Number(lockAmount),
-        tokenAddress,
-      ]);
-    else
-      await contract.write(
-        "deposit",
-        [duration],
-        ethers.parseEther(lockAmount),
-      );
+      await contract.write("deposit", [duration, lockAmount, tokenAddress]);
+    else await contract.write("deposit", [duration], BigInt(lockAmount));
   }
 
   const withdraw = async (depositId: number) =>

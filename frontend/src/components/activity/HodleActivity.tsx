@@ -84,13 +84,13 @@ const ActivityTable = ({
             />
           </div>
 
-          <div className="no-scrollbar relative h-full w-full overflow-y-auto ">
+          <div className=" relative h-full w-full">
             {!isFormatingActivities ? (
               !!currentPageActivities.length ? (
                 currentPageActivities.map((activity: any, index: number) => {
                   return (
                     <ActivityRow
-                      index={index}
+                      index={index + 5 * currentPage - 4}
                       key={index}
                       activity={activity}
                       isUserActivity={isUserActivity}

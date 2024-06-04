@@ -110,6 +110,11 @@ const CreateHodl = ({ onHodl }: { onHodl?: () => Promise<void> }) => {
           amount: lockAmount,
           decimals: tokenBalance.decimals,
         }).toString();
+      } else {
+        lockAmount = parseAmount({
+          amount: lockAmount,
+          decimals: 18,
+        }).toString();
       }
 
       const duration = Math.floor(
@@ -234,7 +239,7 @@ const CreateHodl = ({ onHodl }: { onHodl?: () => Promise<void> }) => {
                       onClick={() => {
                         setValues((prev) => ({
                           ...prev,
-                          lockAmount: Number(balance).toFixed(2),
+                          lockAmount: balance.toString(),
                         }));
                       }}
                     >

@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import { WagmiProvider, createStorage, cookieStorage } from "wagmi";
 import { defaultWagmiConfig } from "@web3modal/wagmi/react/config";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -10,7 +11,9 @@ import {
   TESTNET_TRANSPORTS,
   WALLETCONNECT_PROJECT_ID,
 } from "@/utils/constant";
-import { NetworkMode } from "@/types/web3";
+import { State } from "@wagmi/core";
+import Loader from "../common/Loader";
+import useNetworkMode from "@/hooks/useNetworkMode";
 
 const metadata = {
   name: "dohodl",
@@ -21,12 +24,19 @@ const metadata = {
 export const queryClient = new QueryClient();
 
 const WalletConnectProvider = ({
-  networkMode,
   children,
+  initialState,
 }: {
-  networkMode: NetworkMode;
   children: React.ReactNode;
+  initialState?: any;
 }) => {
+  const [loading, setLoading] = useState<boolean>(true);
+  const [networkMode] = useNetworkMode();
+
+  useEffect(() => {
+    setTimeout(() => setLoading(false), 1000);
+  }, []);
+
   const wagmiConfig = defaultWagmiConfig({
     projectId: WALLETCONNECT_PROJECT_ID,
     chains: networkMode === "mainnet" ? MAINNET_CHAINS : TESTNET_CHAINS,
@@ -44,8 +54,10 @@ const WalletConnectProvider = ({
     allWallets: "SHOW",
   });
 
-  return (
-    <WagmiProvider config={wagmiConfig}>
+  return loading ? (
+    <Loader />
+  ) : (
+    <WagmiProvider config={wagmiConfig} initialState={initialState}>
       <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
     </WagmiProvider>
   );

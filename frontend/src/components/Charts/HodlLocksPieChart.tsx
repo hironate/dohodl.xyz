@@ -77,7 +77,7 @@ const HodleLocksPieChart = ({
               series={state.series}
               type="donut"
             />
-            <div className="absolute -bottom-7 text-lg font-semibold text-primary-neon sm:top-1/2">
+            <div className="absolute -bottom-7 text-lg font-semibold text-primary-neon sm:bottom-auto sm:top-1/2">
               <span>≈</span>
               <span> {totalValueLocked.toFixed(2)} USD</span>
             </div>
@@ -86,13 +86,11 @@ const HodleLocksPieChart = ({
 
         <div className="flex w-full flex-wrap items-center justify-center gap-y-3 pt-7.5 sm:p-0">
           {LocksData?.map((lockData: LockData, index: number) => {
-            const colorHash = tickColors[index];
-
             return (
               <div key={index} className="w-full sm:w-1/2">
-                <div className="flex w-full items-center justify-evenly">
+                <div className="flex w-full items-center justify-evenly pl-7 lg:pl-3">
                   <span
-                    className={`mr-2 block h-3 w-full max-w-3 rounded-full bg-[${colorHash}]`}
+                    className={`mr-0.5 block h-3  w-full max-w-3 rounded-full lockValue-${index + 1}`}
                   ></span>
                   <p className="flex w-full items-center justify-between text-sm font-medium text-black dark:text-white">
                     <span> {lockData.chainName} </span>

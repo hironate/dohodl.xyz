@@ -1,3 +1,4 @@
+"use client";
 import useLocalStorage from "./useLocalStorage";
 
 export type NetworkMode = "testnet" | "mainnet";

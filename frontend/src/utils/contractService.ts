@@ -37,6 +37,7 @@ export const Contract = (
           args,
           value,
           ...(chainId ? { chainId } : {}),
+          __mode: "prepared",
         });
 
         const result = await waitForTransactionReceipt(config, { hash });

@@ -34,7 +34,7 @@
     "react-modal": "^3.16.1",
     "react-toastify": "^10.0.5",
     "recharts": "^2.12.6",
-    "wagmi": "^2.8.0"
+    "wagmi": "^2.9.8"
   },
   "devDependencies": {
     "@types/node": "^20",
