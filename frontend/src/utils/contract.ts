@@ -32,7 +32,7 @@ export const getContractAddress = (isERC20Hodl: boolean, chainId?: number) => {
       case 8453:
         return ERC20HodlMainnetContractAddress;
       default:
-        return ERC20HodlContractAddress;
+        return ERC20HodlMainnetContractAddress;
     }
   }
   return contractAddress;

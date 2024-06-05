@@ -134,7 +134,7 @@ const CreateHodl = ({ onHodl }: { onHodl?: () => Promise<void> }) => {
           tokenAddress,
         });
         await create_hodl_succesor_process(
-          `Lock created for ${lockAmount} ${symbol}`,
+          `Lock created for ${formatAmount({ amount: lockAmount, decimals: !isNativeSelected ? tokenBalance.decimals : 18 })} ${symbol}`,
         );
       } catch (error: any) {
         hodl_creation_failure_process(error);

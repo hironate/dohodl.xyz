@@ -1,4 +1,6 @@
-import React, { useCallback, useEffect, useState } from "react";
+import useNetworkMode from "@/hooks/useNetworkMode";
+import { getDefaultChainID } from "@/utils/chains";
+import React, { useCallback, useMemo, useState } from "react";
 import { useAccount, useSwitchChain } from "wagmi";
 
 const ChainButton = ({
@@ -17,20 +19,29 @@ const ChainButton = ({
   buttonType?: "reset" | "button" | "submit";
 }) => {
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
-  const { chainId: currentChainId } = useAccount();
+  const { chain } = useAccount();
   const { switchChainAsync } = useSwitchChain();
+  const currentChainId = useMemo(() => chain?.id, [chain]);
+  const [networkMode] = useNetworkMode();
 
   const handleSwitchChain = useCallback(async () => {
-    if (chainId === currentChainId || !chainId) return;
-    else await switchChainAsync({ chainId });
-  }, [chainId, currentChainId, switchChainAsync]);
+    if (currentChainId === chainId) return;
+    const chain_id =
+      currentChainId && chainId
+        ? chainId
+        : getDefaultChainID(networkMode === "testnet");
+
+    await switchChainAsync({
+      chainId: chain_id,
+    });
+  }, [chainId, currentChainId, networkMode, switchChainAsync]);
 
   const handleClick = useCallback(async () => {
-    if (chainId) await handleSwitchChain();
+    if (chainId !== currentChainId) await handleSwitchChain();
     setIsProcessing(true);
     await onClick?.();
     setIsProcessing(false);
-  }, [chainId, handleSwitchChain, onClick]);
+  }, [chainId, currentChainId, handleSwitchChain, onClick]);
 
   return (
     <button
