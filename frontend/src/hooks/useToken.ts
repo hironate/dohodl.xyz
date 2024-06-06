@@ -1,5 +1,5 @@
 import { getCoinsDataById } from "@/helper/coingecko-helper";
-import { ERC20HodlContractAddress, getContractAbi } from "@/utils/contract";
+import { getContractAddress } from "@/utils/contract";
 import { TokenContract } from "@/utils/contractService";
 import { formatAmount, parseAmount } from "@/utils/ethers";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -8,7 +8,11 @@ import { useCallback, useMemo } from "react";
 import { useAccount, useConfig } from "wagmi";
 
 const useToken = (tokenAddress: string) => {
-  const { address, isConnected } = useAccount();
+  const { address, isConnected, chain } = useAccount();
+  const ERC20_HODL_CONTRACT_ADDRESS = useMemo(
+    () => getContractAddress(true, chain?.id),
+    [chain],
+  );
   const config = useConfig();
 
   const isEnabled = useMemo(
@@ -43,7 +47,7 @@ const useToken = (tokenAddress: string) => {
     queryFn: async (): Promise<BigInt> => {
       let data: any = await contract.read("allowance", [
         address,
-        ERC20HodlContractAddress,
+        ERC20_HODL_CONTRACT_ADDRESS,
       ]);
       const allowance = BigInt(data || 0);
       return allowance;
@@ -53,7 +57,7 @@ const useToken = (tokenAddress: string) => {
 
   const { mutateAsync: approve, isSuccess: isApproved } = useMutation({
     mutationFn: async ({ value }: { value: BigInt }) =>
-      await contract.write("approve", [ERC20HodlContractAddress, value]),
+      await contract.write("approve", [ERC20_HODL_CONTRACT_ADDRESS, value]),
   });
 
   const { symbol, decimals } = useMemo(
@@ -73,8 +77,6 @@ const useToken = (tokenAddress: string) => {
     }),
     [userBalance, decimals],
   );
-
-  console.log({ balance });
 
   const allowance = useMemo(
     () =>

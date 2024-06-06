@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import ChainLogo from "./ChainLogo";
 import { useAccount, useSwitchChain } from "wagmi";
 import { KeyboardArrowDownTwoTone } from "@mui/icons-material";
@@ -10,9 +10,9 @@ import {
   getChainIdByChainName,
 } from "@/utils/constant";
 import Dropdown from "../Dropdown";
+import { getDefaultChainID } from "@/utils/chains";
 
 const ChainTracker = () => {
-  const [dropdownOpen, setDropdownOpen] = useState(false);
   const { chain, isConnected } = useAccount();
   const [network] = useNetworkMode();
   const { switchChainAsync } = useSwitchChain();
@@ -22,7 +22,24 @@ const ChainTracker = () => {
     [network],
   );
 
+  const handleSwitchChain = useCallback(async () => {
+    if (!chain?.id)
+      await switchChainAsync({
+        chainId: getDefaultChainID(network === "testnet"),
+      });
+  }, [chain?.id, network, switchChainAsync]);
+
   if (!isConnected) return <></>;
+
+  if (!chain?.id)
+    return (
+      <button
+        className="text-bodydark3 rounded-xl bg-primary p-4 py-2 text-center font-bold text-white hover:text-bodydark1"
+        onClick={() => handleSwitchChain()}
+      >
+        Switch Chain
+      </button>
+    );
 
   return (
     <div className="relative min-w-fit">
