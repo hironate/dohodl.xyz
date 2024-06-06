@@ -40,7 +40,10 @@ export const Contract = (
           __mode: "prepared",
         });
 
-        const result = await waitForTransactionReceipt(config, { hash });
+        const result = await waitForTransactionReceipt(config, {
+          hash,
+          confirmations: 2,
+        });
         return result;
       } catch (error) {
         throw error;

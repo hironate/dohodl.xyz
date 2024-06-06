@@ -92,22 +92,20 @@ const useToken = (tokenAddress: string) => {
   const checkOrSetAllowance = useCallback(
     async (tokenAmount: string | number) => {
       if (Number(tokenAmount) > Number(allowance)) {
-        await approve({
-          value: parseAmount({
-            amount: tokenAmount,
-            decimals,
-          }),
+        const parsedAmount = parseAmount({
+          amount: tokenAmount,
+          decimals,
         });
 
-        let newAllowance = (await refetchAllowance()).data?.toString();
+        await approve({
+          value: parsedAmount,
+        });
 
-        if (newAllowance)
-          newAllowance = formatAmount({
-            amount: newAllowance,
-            decimals,
-          }).toString();
+        let newAllowance: any = (await refetchAllowance()).data?.toString();
 
-        if (!newAllowance || newAllowance < tokenAmount) {
+        if (newAllowance) newAllowance = BigInt(newAllowance);
+
+        if (!newAllowance || newAllowance < parsedAmount) {
           throw new Error("Insufficient Allowance");
         }
         return "valid";

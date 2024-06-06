@@ -18,7 +18,7 @@ import useNetworkMode from "@/hooks/useNetworkMode";
 const metadata = {
   name: "dohodl",
   description: "",
-  url: "localhost:/3000",
+  url: "dohodl.xyz",
   icons: ["https://avatars.githubusercontent.com/u/37784886"],
 };
 export const queryClient = new QueryClient();
