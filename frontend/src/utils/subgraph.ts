@@ -230,7 +230,7 @@ export const getLocksValuesFromSubgraphData = (
 
   if (data)
     for (let i = 0; i < data.length; i++) {
-      let amount = parseInt(data[i].amount);
+      let amount = data[i].amount;
 
       totalLocks += amount;
       if (data[i].withdrawn) {

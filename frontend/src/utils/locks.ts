@@ -186,8 +186,8 @@ export const formatActivityData = async (
       currencyDecimal = await contract.getDecimal();
       currencySymbol = await contract.getSymbol();
     }
-    const amount = formatAmount({
-      amount: Number(activity.amount),
+    const amount: any = formatAmount({
+      amount: activity.amount,
       decimals: currencyDecimal,
     });
 
