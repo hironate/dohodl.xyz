@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Dohodl - Secure and Reliable Token Locking | Crypto Lock Services
+    </title>
+    <meta
+      name="description"
+      content="Secure your crypto assets with Dohodl. Lock native assets, ERC20 tokens, and NFTs securely with our reliable services."
+    />
+
+    <meta
+      name="keywords"
+      content="hodl, dohodl, token lock, crypto lock, lock crypto, lock token, token locks"
+    />
+    <meta name="author" content="hironate" />
+    <meta
+      property="og:title"
+      content="Hodl - Secure and Reliable Token Locking"
+    />
+    <meta
+      property="og:description"
+      content="Secure your crypto assets with Hodl. Lock native assets, ERC20 tokens, and NFTs securely. Explore our reliable token locking services today!"
+    />
+    <meta property="og:url" content="https://dohodl.xyz" />
+    <meta property="og:type" content="website" />
+
+    <link rel="shortcut icon" href="./assets/img/favicon.png" />
+    <link rel="stylesheet" href="./assets/css/plugins.css" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <link rel="stylesheet" href="./assets/css/colors/blue.css" />
+    <link
+      rel="preload"
+      href="./assets/css/fonts/space.css"
+      as="style"
+      onload="this.rel='stylesheet'"
+    />
+  </head>
+
+  <body class="bg-soft-primary">
+    <div class="content-wrapper">
+      <header class="position-absolute w-100">
+        <div
+          class="gradient-5 text-white fw-bold fs-15 mb-2 position-relative"
+          style="z-index: 1"
+        ></div>
+        <nav
+          class="navbar navbar-expand-lg center-nav transparent navbar-light"
+        >
+          <div class="container flex-lg-row flex-nowrap align-items-center">
+            <div class="navbar-brand w-100">
+              <a href="/">
+                <img
+                  src="./assets/img/logo-dark.png"
+                  srcset="./assets/img/logo-dark@2x.png 2x"
+                  alt="dohodl logo"
+                  width="40px"
+                />
+              </a>
+            </div>
+            <div
+              class="navbar-collapse offcanvas offcanvas-nav offcanvas-start"
+            >
+              <div class="offcanvas-header d-lg-none">
+                <div class="navbar-brand w-100">
+                  <a href="/" style="display: flex; align-items: end">
+                    <img
+                      src="./assets/img/logo-icon.png"
+                      srcset="./assets/img/logo-icon.png 2x"
+                      alt="dohodl logo"
+                      width="40px"
+                    />
+                  </a>
+                </div>
+                <button
+                  type="button"
+                  class="btn-close btn-close-white"
+                  data-bs-dismiss="offcanvas"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="offcanvas-body ms-lg-auto d-flex flex-column h-100">
+                <ul class="navbar-nav">
+                  <li class="nav-item -mega">
+                    <a class="nav-link -toggle" href="#home" data-bs-toggle=""
+                      >Home</a
+                    >
+                  </li>
+                  <li class="nav-item -mega">
+                    <a class="nav-link -toggle" href="#demo" data-bs-toggle=""
+                      >Demo</a
+                    >
+                  </li>
+                  <!--  services-dropdown  -->
+                  <li class="nav-item dropdown">
+                    <a
+                      class="nav-link dropdown-toggle"
+                      href="#"
+                      data-bs-toggle="dropdown"
+                      >Services</a
+                    >
+                    <div class="dropdown-menu dropdown-lg">
+                      <div class="dropdown-lg-content">
+                        <div>
+                          <h6 class="dropdown-header">Asset Locks</h6>
+                          <ul class="list-unstyled">
+                            <li>
+                              <a
+                                class="dropdown-item"
+                                href="https://app.dohodl.xyz/locks?type=native"
+                                target="_blank"
+                                >Lock Native Assets</a
+                              >
+                            </li>
+                            <li>
+                              <a
+                                class="dropdown-item"
+                                href="https://app.dohodl.xyz/locks?type=erc20"
+                                target="_blank"
+                                >Lock ERC20 Tokens</a
+                              >
+                            </li>
+                            <li>
+                              <a
+                                class="dropdown-item"
+                                href="https://app.dohodl.xyz/locks?type=erc721"
+                                target="_blank"
+                                >Lock NFTs</a
+                              >
+                            </li>
+                          </ul>
+                        </div>
+                        <!-- /.column -->
+                        <div>
+                          <h6 class="dropdown-header">Deploy</h6>
+                          <ul class="list-unstyled">
+                            <li>
+                              <a class="dropdown-item" href="#"
+                                >Deploy Tokens</a
+                              >
+                            </li>
+                            <li>
+                              <a class="dropdown-item" href="#">Deploy NFT</a>
+                            </li>
+                          </ul>
+                        </div>
+                        <div>
+                          <h6 class="dropdown-header">Launchpad</h6>
+                          <ul class="list-unstyled">
+                            <li>
+                              <a class="dropdown-item" href="#"
+                                >Create Project</a
+                              >
+                            </li>
+                            <li>
+                              <a class="dropdown-item" href="#"
+                                >Raise Capital</a
+                              >
+                            </li>
+                          </ul>
+                        </div>
+                        <!-- /.column -->
+                      </div>
+                      <!-- /auto-column -->
+                    </div>
+                  </li>
+                </ul>
+                <!-- /.navbar-nav -->
+
+                <div class="offcanvas-footer d-lg-none"></div>
+                <!-- /.offcanvas-footer -->
+              </div>
+              <!-- /.offcanvas-body -->
+            </div>
+            <!-- /.navbar-collapse -->
+            <div class="navbar-other w-100 d-flex ms-auto">
+              <ul class="navbar-nav flex-row align-items-center ms-auto">
+                <li class="nav-item d-none d-md-block">
+                  <a
+                    rel="canonical"
+                    href="https://app.dohodl.xyz"
+                    class="btn btn-blue rounded-xl"
+                    target="_blank"
+                    >Launch App</a
+                  >
+                </li>
+                <li class="nav-item d-lg-none">
+                  <button class="hamburger offcanvas-nav-btn">
+                    <span></span>
+                  </button>
+                </li>
+              </ul>
+              <!-- /.navbar-nav -->
+            </div>
+            <!-- /.navbar-other -->
+          </div>
+          <!-- /.container -->
+        </nav>
+      </header>
+      <section class="wrapper overflow-hidden" id="home">
+        <div
+          class="container pt-19 pt-md-21 pb-16 pb-md-18 text-center position-relative"
+        >
+          <div
+            class="position-absolute"
+            style="top: -12%; left: 50%; transform: translateX(-50%)"
+            data-cue="fadeIn"
+          >
+            <img
+              src="./assets/img/photos/blurry.png"
+              alt="blurry background image"
+            />
+          </div>
+          <div class="row position-relative">
+            <div class="col-lg-8 col-xxl-7 mx-auto position-relative">
+              <div
+                class="position-absolute shape blue w-5 d-none d-lg-block"
+                style="top: -5%; left: -15%"
+                data-cue="fadeIn"
+                data-delay="1500"
+              >
+                <img
+                  src="./assets/img/icons/lineal/lock.svg"
+                  class="svg-inject icon-svg icon-svg-sm text-blue"
+                  alt="Lock Icon"
+                />
+              </div>
+              <div
+                class="position-absolute shape violet w-10 d-none d-lg-block"
+                style="bottom: 30%; left: -20%"
+                data-cue="fadeIn"
+                data-delay="1500"
+              >
+                <img
+                  src="./assets/img/svg/scribble.svg"
+                  class="svg-inject icon-svg w-100 h-100"
+                  alt=""
+                />
+              </div>
+              <div
+                class="position-absolute shape fuchsia w-6 d-none d-lg-block"
+                style="top: 0%; right: -15%"
+                data-cue="fadeIn"
+                data-delay="1500"
+              >
+                <img
+                  src="./assets/img/icons/solid/rocket.svg"
+                  class="svg-inject icon-svg icon-svg-xs solid-mono text-fuchsia"
+                  alt=""
+                />
+              </div>
+              <div
+                class="position-absolute shape text-yellow w-6 d-none d-lg-block"
+                style="bottom: 25%; right: -17%"
+                data-cue="fadeIn"
+                data-delay="1500"
+              >
+                <img
+                  src="./assets/img/icons/lineal/pie-chart.svg"
+                  class="svg-inject icon-svg w-100 h-100"
+                  alt=""
+                />
+              </div>
+              <div data-cues="slideInDown" data-group="page-title">
+                <div>
+                  <h1 class="display-1 fs-64 mb-0 mx-md-10 mx-lg-0">
+                    Lock Your Digital Assets Securely
+                  </h1>
+                  <span
+                    class="display-1 fs-64 mx-md-10 mx-lg-0 rotator-fade text-primary fs-50"
+                  >
+                    Native assets.,ERC20 tokens.
+                  </span>
+                </div>
+                <p class="lead fs-24 mb-8">
+                  Easily lock your native assets and ERC20 tokens with our
+                  secure and user-friendly platform.
+                </p>
+              </div>
+              <div
+                class="d-flex justify-content-center gap-3"
+                data-cues="slideInDown"
+                data-delay="600"
+              >
+                <span
+                  ><a
+                    href="#learn-more"
+                    class="btn btn-lg btn-fuchsia btn-icon btn-icon-end rounded-xl mx-md-1 mb-2 mb-md-0 scroll"
+                    >Learn More <i class="uil uil-arrow-down-right"></i></a
+                ></span>
+                <span
+                  ><a
+                    href="https://app.dohodl.xyz/locks"
+                    class="btn btn-lg btn-blue btn-icon btn-icon-end rounded-xl mx-md-1"
+                    target="_blank"
+                    >Get Started <i class="uil uil-arrow-up-right"></i></a
+                ></span>
+              </div>
+              <!-- /div -->
+            </div>
+            <!-- /column -->
+          </div>
+          <!-- /.row -->
+        </div>
+        <!-- /.container -->
+        <div
+          class="swiper-container swiper-auto swiper-auto-xs mb-8"
+          data-margin="40"
+          data-nav="false"
+          data-dots="false"
+          data-centered="true"
+          data-loop="true"
+          data-items-auto="true"
+          data-autoplay="true"
+          data-autoplaytime="1"
+          data-drag="false"
+          data-resizeupdate="false"
+          data-speed="7000"
+        >
+          <div class="swiper overflow-visible pe-none">
+            <div class="swiper-wrapper ticker">
+              <div class="swiper-slide">
+                <figure class="rounded-xl shadow-xl">
+                  <img
+                    src="./assets/img/photos/dohodl-page-2.png"
+                    srcset="./assets/img/photos/dohodl-page-2.png 2x"
+                    alt=""
+                  />
+                </figure>
+              </div>
+              <div class="swiper-slide">
+                <figure class="rounded-xl shadow-xl">
+                  <img
+                    src="./assets/img/photos/dohodl-page-4.png"
+                    srcset="./assets/img/photos/dohodl-page-4.png 2x"
+                    alt=""
+                  />
+                </figure>
+              </div>
+              <div class="swiper-slide">
+                <figure class="rounded-xl shadow-xl">
+                  <img
+                    src="./assets/img/photos/dohodl-page-3.png"
+                    srcset="./assets/img/photos/dohodl-page-3.png 2x"
+                    alt=""
+                  />
+                </figure>
+              </div>
+              <div class="swiper-slide">
+                <figure class="rounded-xl shadow-xl">
+                  <img
+                    src="./assets/img/photos/dohodl-page-5.png"
+                    srcset="./assets/img/photos/dohodl-page-5.png 2x"
+                    alt=""
+                  />
+                </figure>
+              </div>
+              <div class="swiper-slide">
+                <figure class="rounded-xl shadow-xl">
+                  <img
+                    src="./assets/img/photos/dohodl-page-6.png"
+                    srcset="./assets/img/photos/dohodl-page-6.png 2x"
+                    alt=""
+                  />
+                </figure>
+              </div>
+              <div class="swiper-slide">
+                <figure class="rounded-xl shadow-xl">
+                  <img
+                    src="./assets/img/photos/dohodl-page-8.png"
+                    srcset="./assets/img/photos/dohodl-page-8.png 2x"
+                    alt=""
+                  />
+                </figure>
+              </div>
+            </div>
+            <!--/.swiper-wrapper -->
+          </div>
+          <!-- /.swiper -->
+        </div>
+      </section>
+      <section class="wrapper mt-12 mg-5 mb-sm-15 mb-lg-20" id="learn-more">
+        <div class="container pb-14 pb-md-16">
+          <div
+            class="row gx-lg-8 gx-xl-12 gy-10 align-items-center mb-14 mb-md-18"
+          >
+            <div class="col-lg-6 position-relative">
+              <div
+                class="shape rounded bg-pale-blue rellax d-block"
+                data-rellax-speed="0"
+                style="
+                  top: 50%;
+                  left: 50%;
+                  width: 50%;
+                  height: 60%;
+                  transform: translate(-50%, -50%);
+                  z-index: 0;
+                "
+              ></div>
+              <div class="row gx-md-5 gy-5 position-relative">
+                <div class="col-6">
+                  <img
+                    class="img-fluid rounded shadow-lg mb-5"
+                    data-cue="fadeIn"
+                    data-delay="300"
+                    src="./assets/img/photos/locked-value@2x.png"
+                    srcset="./assets/img/photos/locked-value@2x.png 2x"
+                    alt=""
+                  />
+                  <img
+                    class="img-fluid rounded shadow-lg d-flex col-10 ms-auto"
+                    data-cue="fadeIn"
+                    data-delay="600"
+                    src="./assets/img/photos/historical-value-in-usd.png"
+                    srcset="./assets/img/photos/historical-value-in-usd.png 2x"
+                    alt=""
+                  />
+                </div>
+                <!-- /column -->
+                <div class="col-6">
+                  <img
+                    class="img-fluid rounded shadow-lg d-flex"
+                    data-cue="fadeIn"
+                    data-delay="900"
+                    src="./assets/img/photos/create-hodl.png"
+                    srcset="./assets/img/photos/create-hodl@2x.png 2x"
+                    alt=""
+                  />
+                </div>
+                <!-- /column -->
+              </div>
+              <!-- /.row -->
+            </div>
+            <!--/column -->
+            <div class="col-lg-6">
+              <h2 class="display-4 mb-5 fs-50">
+                Stay Away From Emotional Trading
+              </h2>
+              <p class="mb-5">
+                Crypto is a long term game. Lock Your Assets for Day, Months and
+                Years. No Impermenant Loss, No Trading Loss.
+              </p>
+              <div>
+                <a
+                  href="https://app.dohodl.xyz/locks"
+                  class="btn btn-lg btn-blue btn-icon btn-icon-end rounded-xl mx-md-1"
+                  target="_blank"
+                  >Lock Assets<i class="uil uil-arrow-up-right"></i
+                ></a>
+              </div>
+              <!--/.row -->
+            </div>
+            <!--/.row -->
+          </div>
+          <!--/column -->
+
+          <div class="mb-9 mb-lg-14">
+            <div class="row">
+              <div
+                class="col-md-10 offset-md-1 col-lg-8 offset-lg-2 mx-auto text-center"
+              >
+                <h2 class="fs-16 text-uppercase text-muted mb-3">
+                  What we offer for free?
+                </h2>
+              </div>
+              <!-- /column -->
+            </div>
+            <!-- /.row -->
+            <ul
+              class="mt-10 nav nav-tabs nav-tabs-bg nav-tabs-shadow-lg d-flex justify-content-between nav-justified flex-lg-row flex-column"
+            >
+              <li class="nav-item">
+                <div class="nav-link d-flex flex-row">
+                  <div>
+                    <img
+                      src="./assets/img/icons/solid/coin-lock.svg"
+                      class="svg-inject icon-svg icon-svg-sm solid-mono text-fuchsia me-4"
+                      alt=""
+                    />
+                  </div>
+                  <div class="d-flex flex flex-column">
+                    <h4>Asset Locks</h4>
+                    <p>
+                      A transparent, multi-chain, secure, and decentralized
+                      vault for time-released vesting of native assets, ERC20
+                      tokens, and NFTs.
+                    </p>
+                    <a
+                      href="https://app.dohodl.xyz"
+                      class="mt-1"
+                      style="width: fit-content"
+                      >Launch</a
+                    >
+                  </div>
+                </div>
+              </li>
+              <li class="nav-item">
+                <div class="nav-link d-flex flex-row">
+                  <div>
+                    <img
+                      src="./assets/img/icons/lineal/scale.svg"
+                      class="svg-inject icon-svg icon-svg-sm solid-mono text-violet me-4"
+                      alt=""
+                    />
+                  </div>
+                  <div class="d-flex flex flex-column">
+                    <h4>Deploy</h4>
+                    <p>
+                      The multi-chain dapp where anyone can create their own
+                      token and deploy it on the blockchain, without any coding
+                      knowledge.
+                    </p>
+                    <a href="#" class="mt-1" style="pointer-events: none"
+                      >coming soon</a
+                    >
+                  </div>
+                </div>
+              </li>
+              <li class="nav-item">
+                <div class="nav-link d-flex flex-row">
+                  <div class="d-flex flex flex-column">
+                    <img
+                      src="./assets/img/icons/lineal/rocket.svg"
+                      class="svg-inject icon-svg icon-svg-sm solid-mono text-green me-4"
+                      alt=""
+                    />
+                  </div>
+                  <div>
+                    <h4>Launchpad</h4>
+                    <p>
+                      Launch your blockchain project with our secure,
+                      multi-chain launchpad. Raise capital, gain visibility, and
+                      build a community.
+                    </p>
+                    <a href="#" class="mt-1" style="pointer-events: none"
+                      >coming soon</a
+                    >
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+      <section class="wrapper bg-soft-gray" id="demo">
+        <div class="container py-14 pt-md-16 pt-lg-0 pb-md-16">
+          <div class="row text-center" data-cue="slideInUp">
+            <div class="col-lg-10 mx-auto">
+              <div class="mt-lg-n20 mt-xl-n22 position-relative">
+                <div
+                  class="shape bg-dot red rellax w-16 h-18"
+                  data-rellax-speed="1"
+                  style="top: 1rem; left: -3.9rem"
+                ></div>
+                <div
+                  class="shape rounded-circle bg-line primary rellax w-18 h-18"
+                  data-rellax-speed="1"
+                  style="bottom: 2rem; right: -3rem"
+                ></div>
+                <div
+                  class="player"
+                  data-plyr-provider="youtube"
+                  data-plyr-embed-id="ja_Irb5LS1k"
+                ></div>
+              </div>
+            </div>
+            <!--/column -->
+          </div>
+          <!--/.row -->
+          <div class="row text-center mt-12">
+            <div class="col-lg-9 mx-auto">
+              <h2 class="display-4 mb-0 text-center px-xl-10 px-xxl-15">
+                Discover Everything You Need to Manage and Analyze Your Digital
+                Assets
+              </h2>
+              <div
+                class="row gx-lg-8 gx-xl-12 process-wrapper text-center mt-9"
+                data-cues="slideInUp"
+                data-group="process"
+              >
+                <div class="col-md-4">
+                  <img
+                    src="./assets/img/icons/lineal/pie-chart.svg"
+                    class="svg-inject icon-svg icon-svg-md text-red mb-3"
+                    alt=""
+                  />
+                  <h4 class="mb-1">1. Analytics</h4>
+                  <p>
+                    View all user activities, total values locked, charts for
+                    tokens locked, and the combined value of your native assets.
+                  </p>
+                </div>
+                <!--/column -->
+                <div class="col-md-4">
+                  <img
+                    src="./assets/img/icons/lineal/lock.svg"
+                    class="svg-inject icon-svg icon-svg-md text-green mb-3"
+                    alt=""
+                  />
+                  <h4 class="mb-1">2. Locks</h4>
+                  <p>
+                    Create new locks for your native assets and ERC20 tokens
+                    with ease and security.
+                  </p>
+                </div>
+                <!--/column -->
+                <div class="col-md-4">
+                  <img
+                    src="./assets/img/icons/lineal/analytics.svg"
+                    class="svg-inject icon-svg icon-svg-md text-yellow mb-3"
+                    alt=""
+                  />
+                  <h4 class="mb-1">3. Dashboard</h4>
+                  <p>
+                    Access personal locks analytics, for detailed insights into
+                    your digital asset management.
+                  </p>
+                </div>
+                <!--/column -->
+              </div>
+              <!--/.row -->
+            </div>
+            <!-- /column -->
+          </div>
+          <!-- /.row -->
+        </div>
+        <!-- /.container -->
+        <figure><img src="./assets/img/photos/clouds.png" alt="" /></figure>
+      </section>
+    </div>
+    <footer class="bg-white">
+      <div class="container pt-8 pt-md-10 pb-7">
+        <div class="d-md-flex align-items-center justify-content-between">
+          <p class="mb-2 mb-lg-0">
+            ©
+            <script>
+              document.write(new Date().getUTCFullYear());
+            </script>
+            Dohodl. All rights reserved.
+          </p>
+          <nav class="nav social social-muted mb-0 text-md-end">
+            <a href="https://github.com/hironate/dohodl.xyz" target="_blank"
+              ><i class="uil uil-github"></i
+            ></a>
+          </nav>
+          <!-- /.social -->
+        </div>
+      </div>
+      <!-- /.container -->
+    </footer>
+    <div class="progress-wrap">
+      <svg
+        class="progress-circle svg-content"
+        width="100%"
+        height="100%"
+        viewBox="-1 -1 102 102"
+      >
+        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
+      </svg>
+    </div>
+    <script src="./assets/js/plugins.js"></script>
+    <script src="./assets/js/theme.js"></script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Dohodl",
+        "url": "https://dohodl.xyz",
+        "potentialAction": [
+          {
+            "@type": "Action",
+            "name": "Lock Native assets",
+            "target": {
+              "@type": "EntryPoint",
+              "urlTemplate": "https://app.dohodl.xyz/locks?type=native"
+            }
+          },
+          {
+            "@type": "Action",
+            "name": "Lock ERC20 Tokens",
+            "target": {
+              "@type": "EntryPoint",
+              "urlTemplate": "https://app.dohodl.xyz/locks?type=erc20"
+            }
+          },
+          {
+            "@type": "Action",
+            "name": "Lock Digital assets",
+            "target": {
+              "@type": "EntryPoint",
+              "urlTemplate": "https://app.dohodl.xyz/locks"
+            }
+          }
+        ]
+      }
+    </script>
+  </body>
+</html>
