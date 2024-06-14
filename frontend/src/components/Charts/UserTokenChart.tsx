@@ -2,7 +2,7 @@ import { formatTokenDepositsToStats } from "@/utils/locks";
 import {
   ResponsivPieChartOpetionForCard,
   PieChartOption,
-  tickColors,
+  adjustChartDataForExtremValueRanges,
 } from "@/utils/chart-options";
 import React, { useEffect, useState } from "react";
 import ReactApexChart from "react-apexcharts";
@@ -26,6 +26,7 @@ const UsersTokenChart = ({
     series: [],
     labels: [],
   });
+  const [originalSeriesData, setOriginalSeriesData] = useState<any[]>([]);
 
   const [totalValueLocked, setTotalValueLocked] = useState<number>(0);
   const [totalTokensLocked, setTotalTokensLocked] = useState<number>(0);
@@ -74,7 +75,11 @@ const UsersTokenChart = ({
       );
 
       const labels = formatedChartDataValues.map(({ symbol }) => symbol);
-      const series = formatedChartDataValues.map(({ amount }) => amount);
+      const originalSeriesData = formatedChartDataValues.map(({ amount }) =>
+        Number(amount.toFixed(2)),
+      );
+      setOriginalSeriesData(originalSeriesData);
+      const series = adjustChartDataForExtremValueRanges(originalSeriesData);
 
       setTotalValueLocked(totalTokenValueLocked);
       setState({ labels, series });
@@ -121,6 +126,13 @@ const UsersTokenChart = ({
                 ...PieChartOption,
                 labels: state.labels,
                 ...(isForCard ? ResponsivPieChartOpetionForCard : {}),
+                tooltip: {
+                  y: {
+                    formatter: function (value, { seriesIndex }) {
+                      return originalSeriesData[seriesIndex];
+                    },
+                  },
+                },
               }}
               series={state.series}
               type="donut"
@@ -140,17 +152,18 @@ const UsersTokenChart = ({
             {!!state.series.length &&
               state.labels?.map((label, index: number) => {
                 return (
-                  <div key={index} className="w-full  sm:w-1/2">
+                  <div key={index} className="w-full  px-4 sm:w-1/2">
                     <div className="flex w-full items-center">
                       <span
-                        className={`mr-2 block h-3 w-full max-w-3 rounded-full bg-[${tickColors[index]}]`}
+                        className={`mr-0.5 block h-3  w-full max-w-3 rounded-full lockValue-${index + 1}`}
                       ></span>
                       <p className="flex w-full justify-between text-sm font-medium text-black dark:text-white">
                         <span> {label} </span>
                         <span>
                           {" "}
                           {Math.round(
-                            100 / (totalValueLocked / state.series[index]),
+                            100 /
+                              (totalValueLocked / originalSeriesData[index]),
                           )}
                           %{" "}
                         </span>

@@ -92,6 +92,23 @@ export const areaChartOptions: ApexOptions = {
   },
 };
 
+export const adjustChartDataForExtremValueRanges = (originalData: any[]) => {
+  let minVisiblePercentage = 10;
+  const sum = originalData.reduce((a, b) => a + b, 0);
+
+  // Adjust values for slices below minimum visibility threshold
+  const adjustedData = originalData.map((value) => {
+    const percentage = (value / sum) * 100;
+    return percentage < minVisiblePercentage
+      ? sum * (minVisiblePercentage / 100)
+      : value;
+  });
+
+  // Convert adjusted data to percentages
+  const adjustedPercentages = adjustedData.map((value) => (value / sum) * 100);
+  return adjustedPercentages;
+};
+
 export const tickColors = [
   "#6577F3",
   "#3C50E0",

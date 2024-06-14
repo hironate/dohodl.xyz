@@ -73,7 +73,17 @@ const HodleLocksPieChart = ({
             className="relative mx-auto flex justify-center gap-2"
           >
             <ReactApexChart
-              options={{ ...PieChartOption, labels: state.labels }}
+              options={{
+                ...PieChartOption,
+                labels: state.labels,
+                tooltip: {
+                  y: {
+                    formatter: function (value) {
+                      return `${value} USD`;
+                    },
+                  },
+                },
+              }}
               series={state.series}
               type="donut"
             />

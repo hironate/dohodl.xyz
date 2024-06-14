@@ -2,10 +2,20 @@ import {
   CurrencyBitcoinTwoTone,
   MonetizationOnTwoTone,
 } from "@mui/icons-material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-const TokenToggle = ({ onSelect }: { onSelect: any }) => {
+const TokenToggle = ({
+  onSelect,
+  defaultToggle = true,
+}: {
+  onSelect: any;
+  defaultToggle: boolean;
+}) => {
   const [toggle, setToggle] = useState(true);
+
+  useEffect(() => {
+    setToggle(defaultToggle);
+  }, [defaultToggle]);
 
   const _className =
     "flex w-full md:w-1/2 cursor-pointer flex-col justify-start rounded-lg border-2 border-stroke dark:border-strokedark p-6.5 gap-1 h-full";

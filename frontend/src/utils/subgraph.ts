@@ -10,6 +10,7 @@ import {
 } from "wagmi/chains";
 import { formatAmount, weiToEthFormate } from "./ethers";
 import { gql } from "@apollo/client";
+import { BigNumberish } from "ethers";
 
 export const CHAINID_TO_ERC20_SUBGRAPHURL = {
   [mainnet.id + "ERC20"]:
@@ -224,13 +225,13 @@ export const getLocksValuesFromSubgraphData = (
   data: any,
   decimals?: number,
 ) => {
-  let totalLocks: number | string = 0;
-  let lockedAmount: number | string = 0;
-  let withdrawn: number | string = 0;
+  let totalLocks: BigNumberish = BigInt(0);
+  let lockedAmount: BigNumberish = BigInt(0);
+  let withdrawn: BigNumberish = BigInt(0);
 
   if (data)
     for (let i = 0; i < data.length; i++) {
-      let amount = data[i].amount;
+      let amount = BigInt(data[i].amount);
 
       totalLocks += amount;
       if (data[i].withdrawn) {

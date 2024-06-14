@@ -1,4 +1,6 @@
+"use client";
 import React, { useCallback, useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import TokenToggle from "../TokenToggle";
 import { Config, useAccount, useBalance, useConfig } from "wagmi";
 import DatePicker from "../DatePicker";
@@ -25,7 +27,13 @@ const initialValues = {
 };
 
 const CreateHodl = ({ onHodl }: { onHodl?: () => Promise<void> }) => {
-  const [isNativeSelected, setIsNativeSelected] = useState(true);
+  const searchParams = useSearchParams();
+  const lockTypeParam = searchParams.get("type");
+  const lockType = useMemo(() => lockTypeParam, [lockTypeParam]);
+  const [isNativeSelected, setIsNativeSelected] = useState(
+    lockType === "erc20" ? false : true,
+  );
+
   const [tokenAddress, setTokenAddress] = useState<string>("");
   const [isCreatingHodl, setIsCreatingHodl] = useState(false);
   const [networkMode] = useNetworkMode();
@@ -171,6 +179,7 @@ const CreateHodl = ({ onHodl }: { onHodl?: () => Promise<void> }) => {
           </div>
           <div className="flex h-full flex-col gap-5 p-6.5">
             <TokenToggle
+              defaultToggle={isNativeSelected}
               onSelect={(mode: string) => {
                 mode === "Native"
                   ? setIsNativeSelected(true)
