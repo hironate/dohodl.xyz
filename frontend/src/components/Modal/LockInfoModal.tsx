@@ -169,7 +169,7 @@ const LockInfoModal = ({
                       );
                 }}
                 isLoading={isProccessingWithdraw}
-                chainId={isAvailableForWithrawal ? chainId : undefined}
+                chainId={chainId}
               />
             </div>
           </div>

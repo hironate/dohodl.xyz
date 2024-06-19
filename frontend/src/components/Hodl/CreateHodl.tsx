@@ -133,7 +133,6 @@ const CreateHodl = ({ onHodl }: { onHodl?: () => Promise<void> }) => {
       const contract = getHodlContract({
         config,
         isErc20: !isNativeSelected,
-        chainId,
       });
       try {
         await contract.deposit({
@@ -152,7 +151,6 @@ const CreateHodl = ({ onHodl }: { onHodl?: () => Promise<void> }) => {
     [
       isNativeSelected,
       config,
-      chainId,
       tokenBalance.decimals,
       checkOrSetAllowance,
       create_hodl_succesor_process,

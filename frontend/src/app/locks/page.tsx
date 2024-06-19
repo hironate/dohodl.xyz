@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { AccountBalanceWalletTwoTone, LockPerson } from "@mui/icons-material";
 import useLocks from "@/hooks/useLocks";
 import { useAccount } from "wagmi";
@@ -63,11 +63,11 @@ const LocksPage = () => {
     getLocksData();
   }, [address, statsDataByChainName, chartDataWithChainName]);
 
-  const onHodl = async () => {
+  const onHodl = useCallback(async () => {
     await refetchAllLocks();
     await refetchStats();
     await refetchStatsDataByChainName();
-  };
+  }, [refetchAllLocks, refetchStats, refetchStatsDataByChainName]);
 
   return (
     <div>
