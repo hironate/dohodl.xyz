@@ -7,10 +7,13 @@ export const Withdraw = async (
   config: Config,
   isErc20: boolean = false,
 ) => {
-  const contract = getHodlContract({ config, isErc20 });
+  const contract = getHodlContract({
+    config,
+    isErc20,
+  });
 
   try {
-    await contract.withdraw(Number(depositId));
+    await contract.withdraw(depositId);
     generateTost({
       message: "successfully withdrawn",
       toastType: "success",

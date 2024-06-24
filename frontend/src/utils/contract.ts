@@ -62,13 +62,11 @@ export const getContractAbi = (
 export const getHodlContract = ({
   config,
   isErc20 = false,
-  chainId,
 }: {
   config: Config;
   isErc20?: boolean;
-  chainId?: number;
 }) => {
-  const contractAddress = getContractAddress(isErc20, chainId);
+  const contractAddress = getContractAddress(isErc20, config.state.chainId);
   const contractAbi = getContractAbi(isErc20 ? "ERC20Hodl" : "Hodl");
   const contract = Contract(contractAddress, contractAbi, config);
 
@@ -86,7 +84,7 @@ export const getHodlContract = ({
     else await contract.write("deposit", [duration], BigInt(lockAmount));
   }
 
-  const withdraw = async (depositId: number) =>
+  const withdraw = async (depositId: any) =>
     contract.write("withdraw", [depositId]);
 
   return { deposit, withdraw };
