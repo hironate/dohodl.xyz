@@ -7,7 +7,12 @@ task('deploy:launchpad', 'Deploy Launchpad Contract', async (_, { ethers }) => {
   const signer = accounts[0];
   const contractName = CONTRACT_NAMES.LAUNCHPAD;
 
-  const launchpad = await ethers.deployContract(contractName, []);
+  // only for testnet
+  const launchpad = await ethers.deployContract(contractName, [
+    '0x0227628f3f023bb0b980b67d528571c95c6dac1c',
+    '0x1238536071e1c677a632429e3655c799b22cda52',
+    '0xfff9976782d46cc05630d1f6ebab18b2324d6b14',
+  ]);
 
   await launchpad.waitForDeployment();
 
@@ -22,7 +27,12 @@ task('verify:launchpad', 'Verify Launchpad Contract', async (_, { run }) => {
 
   await run('verify:verify', {
     address: launchpad.address,
-    constructorArguments: [],
+    // only for testnet
+    constructorArguments: [
+      '0x0227628f3f023bb0b980b67d528571c95c6dac1c',
+      '0x1238536071e1c677a632429e3655c799b22cda52',
+      '0xfff9976782d46cc05630d1f6ebab18b2324d6b14',
+    ],
   });
 });
 
