@@ -13,10 +13,21 @@ const SEPOLIA_ALCHEMY_API = process.env.SEPOLIA_ALCHEMY_API;
 const BASE_ALCHEMY_API = process.env.BASE_ALCHEMY_API;
 const BASE_SEPOLIA_ALCHEMY_API = process.env.BASE_SEPOLIA_ALCHEMY_API;
 module.exports = {
-  solidity: '0.8.20',
+  solidity: {
+    version: '0.8.20',
+    settings: {
+      optimizer: {
+        enabled: true,
+        runs: 50,
+      },
+    },
+  },
   networks: {
     hardhat: {
       chainId: 1337,
+      // forking: {
+      //   url: `https://eth-sepolia.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`,
+      // },
     },
     mainnet: {
       url: `https://gateway.tenderly.co/public/mainnet`,
