@@ -3,16 +3,14 @@ import { getContractAddress } from "@/utils/contract";
 import { TokenContract } from "@/utils/contractService";
 import { formatAmount, parseAmount } from "@/utils/ethers";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import { BigNumberish } from "ethers";
 import { ethers } from "ethers";
 import { useCallback, useMemo } from "react";
 import { useAccount, useConfig } from "wagmi";
 
-const useToken = (tokenAddress: string) => {
-  const { address, isConnected, chain } = useAccount();
-  const ERC20_HODL_CONTRACT_ADDRESS = useMemo(
-    () => getContractAddress(true, chain?.id),
-    [chain],
-  );
+const useToken = (tokenAddress: string, spendingContractAddress: string) => {
+  const { address, isConnected } = useAccount();
+
   const config = useConfig();
 
   const isEnabled = useMemo(
@@ -20,49 +18,61 @@ const useToken = (tokenAddress: string) => {
     [address, tokenAddress, isConnected],
   );
 
-  const contract = TokenContract(tokenAddress, config);
+  const contract = useMemo(
+    () => TokenContract(tokenAddress, config),
+    [tokenAddress],
+  );
 
   const { data: userBalance, refetch: refetBalance } = useQuery({
-    queryKey: ["balanceOf", address],
+    queryKey: ["balanceOf", address, contract, tokenAddress],
     queryFn: async (): Promise<any> => {
       const data = await contract.read("balanceOf", [address]);
       return data;
     },
-    enabled: isEnabled,
+    enabled: isEnabled && !!tokenAddress,
   });
 
   const { data: tokenPredefinedData } = useQuery({
     queryKey: ["decimals", tokenAddress],
-    queryFn: async (): Promise<{ decimals: any; symbol: any }> => {
+    queryFn: async (): Promise<{
+      decimals: any;
+      symbol: any;
+      totalSupply: any;
+      name: any;
+    }> => {
       const decimals = await contract.read("decimals");
       const symbol = await contract.read("symbol");
+      const totalSupply = await contract.read("totalSupply");
+      const name = await contract.read("name");
 
-      return { decimals, symbol };
+      return { decimals, symbol, totalSupply, name };
     },
     enabled: !!tokenAddress,
   });
 
   const { data: tokenAllowance, refetch: refetchAllowance } = useQuery({
-    queryKey: ["allowance", address],
+    queryKey: ["allowance", address, spendingContractAddress],
     queryFn: async (): Promise<BigInt> => {
       let data: any = await contract.read("allowance", [
         address,
-        ERC20_HODL_CONTRACT_ADDRESS,
+        spendingContractAddress,
       ]);
       const allowance = BigInt(data || 0);
       return allowance;
     },
-    enabled: isEnabled,
+    enabled: isEnabled && !!spendingContractAddress,
   });
 
   const { mutateAsync: approve, isSuccess: isApproved } = useMutation({
     mutationFn: async ({ value }: { value: BigInt }) =>
-      await contract.write("approve", [ERC20_HODL_CONTRACT_ADDRESS, value]),
+      await contract.write("approve", [spendingContractAddress, value]),
   });
 
-  const { symbol, decimals } = useMemo(
+  const { symbol, decimals, totalSupply, name } = useMemo(
     () =>
-      tokenPredefinedData ? tokenPredefinedData : { decimals: "", symbol: "" },
+      tokenPredefinedData
+        ? tokenPredefinedData
+        : { decimals: "", symbol: "", totalSupply: "", name: "" },
     [tokenPredefinedData],
   );
 
@@ -78,27 +88,24 @@ const useToken = (tokenAddress: string) => {
     [userBalance, decimals],
   );
 
-  const allowance = useMemo(
-    () =>
-      tokenAllowance && decimals
-        ? formatAmount({
-            amount: tokenAllowance,
-            decimals,
-          })
-        : "0",
-    [tokenAllowance, decimals],
-  );
-
   const checkOrSetAllowance = useCallback(
-    async (tokenAmount: string | number) => {
-      if (Number(tokenAmount) > Number(allowance)) {
-        const parsedAmount = parseAmount({
-          amount: tokenAmount,
-          decimals,
-        });
+    async (tokenAmount: BigNumberish, isItParsed = false) => {
+      const parsedAmount = isItParsed
+        ? tokenAmount
+        : parseAmount({
+            amount: tokenAmount,
+            decimals,
+          });
+      console.log({ parsedAmount, tokenAllowance });
+
+      if (
+        typeof tokenAllowance !== "undefined" &&
+        parsedAmount > tokenAllowance
+      ) {
+        console.log("init allowance proccess");
 
         await approve({
-          value: parsedAmount,
+          value: BigInt(parsedAmount),
         });
 
         let newAllowance: any = (await refetchAllowance()).data?.toString();
@@ -111,26 +118,32 @@ const useToken = (tokenAddress: string) => {
         return "valid";
       }
     },
-    [allowance, approve, decimals, refetchAllowance],
+    [tokenAllowance, approve, decimals, refetchAllowance],
   );
 
   return useMemo(
     () => ({
       balance,
-      allowance,
+      allowance: tokenAllowance,
       approve,
       refetchAllowance,
       checkOrSetAllowance,
+      name,
       symbol,
+      decimals,
+      totalSupply,
       refetBalance,
     }),
     [
-      allowance,
+      tokenAllowance,
       approve,
       balance,
       checkOrSetAllowance,
       refetchAllowance,
+      name,
       symbol,
+      decimals,
+      totalSupply,
       refetBalance,
     ],
   );

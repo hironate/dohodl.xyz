@@ -11,6 +11,7 @@
     "@openzeppelin/contracts": "^5.0.1",
     "@uniswap/v3-core": "^1.0.1",
     "@uniswap/v3-periphery": "^1.4.4",
-    "dotenv": "^16.0.1"
+    "dotenv": "^16.0.1",
+    "react-tailwindcss-datepicker": "^1.6.6"
   }
 }

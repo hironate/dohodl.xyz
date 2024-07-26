@@ -18,10 +18,10 @@ contract Launchpad is
 
     // 1% pool fee
     uint24 public constant feeAmount = 100;
-    address public factory_contract;
-    address public position_manager;
-    IWETH public WETH;
-    uint24 BPS = 10_000;
+    address public immutable factory_contract;
+    address public immutable position_manager;
+    IWETH public immutable WETH;
+    uint24 constant BPS = 10_000;
     ///////////////EVENTS//////////////////
     /**
      * @dev Emits when a new project is listed on the launchpad with its details
@@ -246,7 +246,13 @@ contract Launchpad is
 
     function invest(
         address _tokenContractAddress
-    ) external payable validateToken(_tokenContractAddress) whenNotPaused {
+    )
+        external
+        payable
+        validateToken(_tokenContractAddress)
+        nonReentrant
+        whenNotPaused
+    {
         Project storage project = projects[_tokenContractAddress];
 
         if (project.isActive == false) revert ProjectNotActive();
@@ -303,6 +309,7 @@ contract Launchpad is
         external
         validateToken(_tokenContractAddress)
         validateProjectExpiry(_tokenContractAddress)
+        nonReentrant
     {
         if (claimed[_tokenContractAddress][msg.sender]) revert ClaimedAlready();
 
@@ -335,14 +342,15 @@ contract Launchpad is
         validateToken(_tokenContractAddress)
         onlyProjectOwner(_tokenContractAddress)
         validateProjectExpiry(_tokenContractAddress)
+        nonReentrant
     {
         Project storage project = projects[_tokenContractAddress];
         if (project.totalAmountRaised >= project.softCap)
             revert IneligibleForRefund();
         if (project.withdrawn) revert AlreadyWithdrawn();
 
-        IERC20(project.token).safeTransfer(_msgSender(), project.tokenMaxCap);
         project.withdrawn = true;
+        IERC20(project.token).safeTransfer(_msgSender(), project.tokenMaxCap);
     }
 
     function getRefund(
@@ -351,6 +359,7 @@ contract Launchpad is
         external
         validateToken(_tokenContractAddress)
         validateProjectExpiry(_tokenContractAddress)
+        nonReentrant
     {
         if (projectInvestments[_tokenContractAddress][msg.sender] == 0)
             revert YouAreNotAnInvestor();
@@ -471,7 +480,7 @@ contract Launchpad is
 
     function EmergencyInvestmentWithdrawal(
         address _tokenContractAddress
-    ) external validateToken(_tokenContractAddress) {
+    ) external validateToken(_tokenContractAddress) nonReentrant {
         mapping(address => uint256)
             storage projectInvestment = projectInvestments[
                 _tokenContractAddress
@@ -483,11 +492,12 @@ contract Launchpad is
             (projectInvestment[msg.sender] *
                 (project.emergencyWithrawalPenaltyPercent)) /
             BPS;
-        (bool success, ) = payable(msg.sender).call{value: withdrawalValue}("");
 
-        if (!success) revert TxnFailed();
         projectInvestment[msg.sender] = 0;
         project.totalAmountRaised -= withdrawalValue;
+
+        (bool success, ) = payable(msg.sender).call{value: withdrawalValue}("");
+        if (!success) revert TxnFailed();
     }
 
     function setEmergencyWithdrawalPercent(

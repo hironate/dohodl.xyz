@@ -41,16 +41,40 @@ export const formatAmount = ({
   amount,
   decimals = 18,
   returnType = "string",
+  fixed = null,
 }: {
   amount: string | bigint | number | BigInt;
   decimals?: string | bigint | number | BigInt;
   returnType?: "number" | "string";
+  fixed?: number | null;
 }) => {
   const formatedAmount = ethers.formatUnits(
     amount.toString(),
     toBigInt(decimals.toString()),
   );
-  return returnType === "string" ? formatedAmount : Number(formatedAmount);
+  return fixed === null
+    ? returnType === "string"
+      ? formatedAmount
+      : Number(formatAmount)
+    : Number(Number(formatedAmount).toFixed(fixed));
+};
+
+export const formateValueToIndianNumberingSystem = (value: number | string) => {
+  const numStr = value.toString();
+  const parts = numStr.split("."); // Split the number into integer and decimal parts
+  const integerPart = parts[0];
+  const decimalPart = parts.length > 1 ? "." + parts[1] : "";
+
+  let lastThree = integerPart.slice(-3);
+  const otherNumbers = integerPart.slice(0, -3);
+
+  if (otherNumbers !== "") {
+    lastThree = "," + lastThree;
+  }
+
+  const formattedInteger =
+    otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree;
+  return formattedInteger + decimalPart;
 };
 
 const getTx = ({

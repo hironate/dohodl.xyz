@@ -8,7 +8,7 @@ import SelectGroupTwo from "../SelectGroup/SelectGroupTwo";
 import { DURATIONS } from "@/utils/constant";
 import moment from "moment";
 import { formatAmount, parseAmount } from "@/utils/ethers";
-import { getHodlContract } from "@/utils/contract";
+import { getContractAddress, getHodlContract } from "@/utils/contract";
 import { Formik } from "formik";
 import useToken from "@/hooks/useToken";
 import { toShortString } from "@/utils/String";
@@ -42,12 +42,18 @@ const CreateHodl = ({ onHodl }: { onHodl?: () => Promise<void> }) => {
     address,
   });
   const config = useConfig();
+  const ERC20_HODL_CONTRACT_ADDRESS = useMemo(
+    () => getContractAddress(true, chainId),
+    [chainId],
+  );
+  console.log({ ERC20_HODL_CONTRACT_ADDRESS });
+
   const {
     balance: tokenBalance,
     checkOrSetAllowance,
     symbol: tokenSymbol,
     refetBalance: refetchTokenBalance,
-  } = useToken(tokenAddress);
+  } = useToken(tokenAddress, ERC20_HODL_CONTRACT_ADDRESS);
 
   const balance = useMemo(() => {
     const balance = isNativeSelected

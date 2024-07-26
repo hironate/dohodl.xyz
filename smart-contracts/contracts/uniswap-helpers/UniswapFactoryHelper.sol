@@ -6,7 +6,7 @@ import "@uniswap/v3-core/contracts/interfaces/IUniswapV3Factory.sol";
 import "@uniswap/v3-periphery/contracts/libraries/TransferHelper.sol";
 import "@openzeppelin/contracts/utils/math/Math.sol";
 
-contract UniswapFactoryAndPositionManagerHelper {
+abstract contract UniswapFactoryAndPositionManagerHelper {
     error InvalidTokenAddressZero();
 
     function getSqrtPriceX96(

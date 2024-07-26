@@ -9,9 +9,9 @@ task('deploy:launchpad', 'Deploy Launchpad Contract', async (_, { ethers }) => {
 
   // only for testnet
   const launchpad = await ethers.deployContract(contractName, [
-    '0x0227628f3f023bb0b980b67d528571c95c6dac1c',
-    '0x1238536071e1c677a632429e3655c799b22cda52',
-    '0xfff9976782d46cc05630d1f6ebab18b2324d6b14',
+    '0x0227628f3f023bb0b980b67d528571c95c6dac1c', // Uniswap factory contract
+    '0x1238536071e1c677a632429e3655c799b22cda52', // Uniswap nft position-manager contract
+    '0xfff9976782d46cc05630d1f6ebab18b2324d6b14', // WETH contract
   ]);
 
   await launchpad.waitForDeployment();

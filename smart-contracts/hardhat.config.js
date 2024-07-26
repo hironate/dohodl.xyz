@@ -6,6 +6,7 @@ config();
 // import hardhat CLI tasks
 require('./tasks/hodl');
 require('./tasks/erc20-hodl');
+require('./tasks/launchpad');
 
 const ALCHEMY_API_KEY = process.env.ALCHEMY_API_KEY;
 const ACCOUNT_PRIVATE_KEY = process.env.ACCOUNT_PRIVATE_KEY;
@@ -80,8 +81,8 @@ module.exports = {
   },
   etherscan: {
     apiKey: {
-      mainnet: process.env.ETHERSCAN_API_KEY,
-      sepolia: process.env.ETHERSCAN_API_KEY,
+      mainnet: process.env.ETHERSCAN_MAINNET_API_KEY,
+      sepolia: process.env.ETHERSCAN_SEPOLIA_API_KEY,
       goerli: process.env.ETHERSCAN_GOERLI_API_KEY,
       amoy: process.env.POLYSCAN_API_KEY,
       polygon: process.env.POLYSCAN_API_KEY,

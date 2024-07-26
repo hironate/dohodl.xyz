@@ -1,6 +1,7 @@
 import Hodl from "@/../artifacts/contracts/abis/Hodl.json";
 import ERC20 from "@/../artifacts/contracts/abis/ERC20.json";
 import ERC20Hodl from "@/../artifacts/contracts/abis/ERC20Hodl.json";
+import LaunchpadABI from "@/../artifacts/contracts/abis/Launchpad.json";
 import { Contract } from "./contractService";
 import { Config } from "wagmi";
 import { ethers } from "ethers";
@@ -15,6 +16,9 @@ export const ERC20HodlMainnetContractAddress =
 
 export const ERC20HodlPolygonContractAddress =
   "0xc57022656b095093441117974C015166569E953d";
+
+export const PresaleContractAddress =
+  "0xF4eC03082Fd3566a7f0E5C609609566B39B6cB24";
 
 export const getContractAddress = (isERC20Hodl: boolean, chainId?: number) => {
   if (isERC20Hodl) {
@@ -39,7 +43,7 @@ export const getContractAddress = (isERC20Hodl: boolean, chainId?: number) => {
 };
 
 export const getContractAbi = (
-  contractName: "ERC20" | "ERC20Hodl" | "Hodl",
+  contractName: "ERC20" | "ERC20Hodl" | "Hodl" | "Launchpad",
 ) => {
   let abi;
   switch (contractName) {
@@ -52,6 +56,10 @@ export const getContractAbi = (
     case "Hodl":
       abi = Hodl.abi;
       break;
+    case "Launchpad":
+      abi = LaunchpadABI.abi;
+      break;
+
     default:
       abi = Hodl.abi;
       break;
